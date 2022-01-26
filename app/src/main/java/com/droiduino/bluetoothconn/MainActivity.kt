@@ -29,6 +29,7 @@ import java.io.OutputStream
 class MainActivity : AppCompatActivity() {
     private var deviceName: String? = null
     private var deviceAddress: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         buttonToggle.isEnabled = false
         val imageView = findViewById<ImageView>(R.id.imageView)
         imageView.setBackgroundColor(resources.getColor(R.color.colorOff))
+        var buttonToScoreboard = findViewById<Button>(R.id.buttonToScoreboard)
 
         // If a bluetooth device has been selected from SelectDeviceActivity
         deviceName = intent.getStringExtra("deviceName")
@@ -108,7 +110,7 @@ class MainActivity : AppCompatActivity() {
         // Button to ON/OFF LED on Arduino Board
         buttonToggle.setOnClickListener {
             var cmdText: String? = null
-            val btnState = buttonToggle.text.toString().toLowerCase()
+            val btnState = buttonToggle.text.toString().lowercase()
             when (btnState) {
                 "turn on" -> {
                     buttonToggle.text = "Turn Off"
@@ -123,6 +125,12 @@ class MainActivity : AppCompatActivity() {
             }
             // Send command to Arduino board
             connectedThread!!.write(cmdText)
+        }
+
+        //Button to move to scoreboard view
+        buttonToScoreboard.setOnClickListener {
+            val intent = Intent(this@MainActivity, Scoreboard::class.java)
+            startActivity(intent)
         }
     }
 

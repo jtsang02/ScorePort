@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/layout/activity_scoreboard.xml" value="0.264" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/layout/activity_select_device.xml" value="0.228125" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/layout/device_info_layout.xml" value="0.228125" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/layout/layout.xml" value="0.2552083333333333" />
       </map>
     </option>
   </component>
