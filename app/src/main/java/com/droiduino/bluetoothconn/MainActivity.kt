@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         val imageView = findViewById<ImageView>(R.id.imageView)
         imageView.setBackgroundColor(resources.getColor(R.color.colorOff))
         var buttonToScoreboard = findViewById<Button>(R.id.buttonToScoreboard)
+        buttonToScoreboard.isEnabled = false
 
         // If a bluetooth device has been selected from SelectDeviceActivity
         deviceName = intent.getStringExtra("deviceName")
@@ -64,6 +65,7 @@ class MainActivity : AppCompatActivity() {
             val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
             createConnectThread = CreateConnectThread(bluetoothAdapter, deviceAddress)
             createConnectThread!!.start()
+            // turn button to scoreboard visible
         }
 
         /*
@@ -77,11 +79,13 @@ class MainActivity : AppCompatActivity() {
                             progressBar.visibility = View.GONE
                             buttonConnect.isEnabled = true
                             buttonToggle.isEnabled = true
+                            buttonToScoreboard.isEnabled = true
                         }
                         -1 -> {
                             toolbar.subtitle = "Device fails to connect"
                             progressBar.visibility = View.GONE
                             buttonConnect.isEnabled = true
+                            buttonToScoreboard.isEnabled = false
                         }
                     }
                     MESSAGE_READ -> {
@@ -107,7 +111,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Button to ON/OFF LED on Arduino Board
+        // Button to ON/OFF LED on Arduino Board - to be deleted later
+        /*
         buttonToggle.setOnClickListener {
             var cmdText: String? = null
             val btnState = buttonToggle.text.toString().lowercase()
@@ -126,6 +131,7 @@ class MainActivity : AppCompatActivity() {
             // Send command to Arduino board
             connectedThread!!.write(cmdText)
         }
+        */
 
         //Button to move to scoreboard view
         buttonToScoreboard.setOnClickListener {

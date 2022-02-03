@@ -90,6 +90,8 @@
         android:id="@+id/buttonToScoreboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="12dp"
         android:layout_marginStart="112dp"
         android:layout_marginEnd="113dp"
         android:layout_marginBottom="35dp"
