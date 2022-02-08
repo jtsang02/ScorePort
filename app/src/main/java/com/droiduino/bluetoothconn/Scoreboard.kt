@@ -3,6 +3,9 @@ package com.droiduino.bluetoothconn
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import org.w3c.dom.Text
 
 class Scoreboard : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,6 +17,7 @@ class Scoreboard : AppCompatActivity() {
         val incrementGuest = findViewById<Button>(R.id.buttonIncrementGuest)
         val decrementGuest = findViewById<Button>(R.id.buttonDecrementGuest)
         val changeMode = findViewById<Button>(R.id.buttonToggleMode)
+        val homeScoreView = findViewById<TextView>(R.id.homeScore)
         var scoreMode = true
         var homeScore = 0
         var guestScore = 0
@@ -34,7 +38,15 @@ class Scoreboard : AppCompatActivity() {
 
         // increment home score or shot
         incrementHome.setOnClickListener {
-            val cmdText : String = if (scoreMode) "<increment home score>" else "<increment home shots>"
+            var cmdText = ""
+            if (scoreMode){
+                cmdText = "<increment home score>"
+                homeScore += 1
+                homeScoreView.text = homeScore.toString()
+            } else {
+                cmdText = "<increment home shots>"
+                // increment homeshots view
+            }
             MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
         }
 
