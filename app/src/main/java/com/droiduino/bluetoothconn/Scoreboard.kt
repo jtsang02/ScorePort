@@ -15,11 +15,12 @@ class Scoreboard : AppCompatActivity() {
         val decrementGuest = findViewById<Button>(R.id.buttonDecrementGuest)
         val changeMode = findViewById<Button>(R.id.buttonToggleMode)
         var scoreMode = true
+        var homeScore = 0
+        var guestScore = 0
 
         // change score/shots mode. does not have to send arduino cmd
         changeMode.setOnClickListener {
-            val btnState = changeMode.text.toString().lowercase()
-            when (btnState) {
+            when (changeMode.text.toString().lowercase()) {
                 "score" -> {
                     changeMode.text = "Shots"
                     scoreMode = false

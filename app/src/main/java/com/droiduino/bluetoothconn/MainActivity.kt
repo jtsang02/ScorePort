@@ -39,11 +39,6 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         progressBar.visibility = View.GONE
-        val textViewInfo = findViewById<TextView>(R.id.textViewInfo)
-        val buttonToggle = findViewById<Button>(R.id.buttonToggle)
-        buttonToggle.isEnabled = false
-        val imageView = findViewById<ImageView>(R.id.imageView)
-        imageView.setBackgroundColor(resources.getColor(R.color.colorOff))
         var buttonToScoreboard = findViewById<Button>(R.id.buttonToScoreboard)
         buttonToScoreboard.isEnabled = false
 
@@ -78,7 +73,6 @@ class MainActivity : AppCompatActivity() {
                             toolbar.subtitle = "Connected to $deviceName"
                             progressBar.visibility = View.GONE
                             buttonConnect.isEnabled = true
-                            buttonToggle.isEnabled = true
                             buttonToScoreboard.isEnabled = true
                         }
                         -1 -> {
@@ -86,19 +80,6 @@ class MainActivity : AppCompatActivity() {
                             progressBar.visibility = View.GONE
                             buttonConnect.isEnabled = true
                             buttonToScoreboard.isEnabled = false
-                        }
-                    }
-                    MESSAGE_READ -> {
-                        val arduinoMsg = msg.obj.toString() // Read message from Arduino
-                        when (arduinoMsg.toLowerCase()) {
-                            "led is turned on" -> {
-                                imageView.setBackgroundColor(resources.getColor(R.color.colorOn))
-                                textViewInfo.text = "Arduino Message : $arduinoMsg"
-                            }
-                            "led is turned off" -> {
-                                imageView.setBackgroundColor(resources.getColor(R.color.colorOff))
-                                textViewInfo.text = "Arduino Message : $arduinoMsg"
-                            }
                         }
                     }
                 }
@@ -110,28 +91,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, SelectDeviceActivity::class.java)
             startActivity(intent)
         }
-
-        // Button to ON/OFF LED on Arduino Board - to be deleted later
-        /*
-        buttonToggle.setOnClickListener {
-            var cmdText: String? = null
-            val btnState = buttonToggle.text.toString().lowercase()
-            when (btnState) {
-                "turn on" -> {
-                    buttonToggle.text = "Turn Off"
-                    // Command to turn on LED on Arduino. Must match with the command in Arduino code
-                    cmdText = "<turn on>"
-                }
-                "turn off" -> {
-                    buttonToggle.text = "Turn On"
-                    // Command to turn off LED on Arduino. Must match with the command in Arduino code
-                    cmdText = "<turn off>"
-                }
-            }
-            // Send command to Arduino board
-            connectedThread!!.write(cmdText)
-        }
-        */
 
         //Button to move to scoreboard view
         buttonToScoreboard.setOnClickListener {
