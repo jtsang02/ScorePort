@@ -1,2 +1,2 @@
-# DroiduinoBluetoothConnection
- Android Studio code for droiduino
+# Scoreport
+ Android Studio code bootstrapped from droiduino
