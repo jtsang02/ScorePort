@@ -1,3 +1,0 @@
-com.samdark.intellij-visual-studio-code-dark-plus
-org.intellij.plugins.markdown
-org.jetbrains.kotlin
