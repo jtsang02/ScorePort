@@ -3,7 +3,8 @@
  * using Bluetooth connection
  * by Droiduino
  */
-
+#include <SoftwareSerial.h>
+SoftwareSerial BtSerial(0, 1) // RX | TX
 const int ledPin = 13; // Built in LED in Arduino board
 String msg,cmd;  
 
@@ -12,6 +13,7 @@ void setup() {
   pinMode(ledPin, OUTPUT);
   digitalWrite(ledPin, LOW);
   Serial.begin(9600); // Communication rate of the Bluetooth Module
+  BtSerial.begin(9600);
   msg = "";
 }
 
