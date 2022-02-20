@@ -5,23 +5,19 @@
  */
 #include <Adafruit_NeoPixel.h>
 
-#define N_LEDS            28
+#define N_LEDS            56
+
 // pin assignment
+
 // time
-#define PIN_SECONDS_L      2    
-#define PIN_SECONDS_R      3
-#define PIN_MINUTES_L      4    
-#define PIN_MINUTES_R      5
+#define PIN_SECONDS        3    
+#define PIN_MINUTES        4    
 // guest score and shots
-#define PIN_GUESTSHOTS_L   6      
-#define PIN_GUESTSHOTS_R   7
-#define PIN_GUESTSCORE_L   8      
-#define PIN_GUESTSCORE_R   9
+#define PIN_GUESTSHOTS     5      
+#define PIN_GUESTSCORE     6
 // home score and shots
-#define PIN_HOMESHOTS_L    10          
-#define PIN_HOMESHOTS_R    11
-#define PIN_HOMESCORE_L    12      
-#define PIN_HOMESCORE_R    13
+#define PIN_HOMESHOTS      7
+#define PIN_HOMESCORE      8      
 
 const int ledPin = 13; // Built in LED in Arduino board
 String msg,cmd;  
@@ -29,20 +25,14 @@ String msg,cmd;
 // store all neopixels in an array
 Adafruit_NeoPixel neoPixels[] = {
 
-  Adafruit_NeoPixel(N_LEDS, PIN_SECONDS_L, NEO_GRB + NEO_KHZ800),
-  Adafruit_NeoPixel(N_LEDS, PIN_SECONDS_R, NEO_GRB + NEO_KHZ800),
-  Adafruit_NeoPixel(N_LEDS, PIN_MINUTES_L, NEO_GRB + NEO_KHZ800),
-  Adafruit_NeoPixel(N_LEDS, PIN_MINUTES_R, NEO_GRB + NEO_KHZ800),
+  Adafruit_NeoPixel(N_LEDS, PIN_SECONDS, NEO_GRB + NEO_KHZ800),
+  Adafruit_NeoPixel(N_LEDS, PIN_MINUTES, NEO_GRB + NEO_KHZ800),
 
-  Adafruit_NeoPixel(N_LEDS, PIN_GUESTSHOTS_L, NEO_GRB + NEO_KHZ800),
-  Adafruit_NeoPixel(N_LEDS, PIN_GUESTSHOTS_R, NEO_GRB + NEO_KHZ800),
-  Adafruit_NeoPixel(N_LEDS, PIN_GUESTSCORE_L, NEO_GRB + NEO_KHZ800),
-  Adafruit_NeoPixel(N_LEDS, PIN_GUESTSCORE_R, NEO_GRB + NEO_KHZ800),
+  Adafruit_NeoPixel(N_LEDS, PIN_GUESTSHOT, NEO_GRB + NEO_KHZ800),
+  Adafruit_NeoPixel(N_LEDS, PIN_GUESTSCORE, NEO_GRB + NEO_KHZ800),
 
-  Adafruit_NeoPixel(N_LEDS, PIN_HOMESHOTS_L, NEO_GRB + NEO_KHZ800),
-  Adafruit_NeoPixel(N_LEDS, PIN_HOMESHOTS_R, NEO_GRB + NEO_KHZ800),
-  Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE_L, NEO_GRB + NEO_KHZ800),
-  Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE_R, NEO_GRB + NEO_KHZ800),
+  Adafruit_NeoPixel(N_LEDS, PIN_HOMESHOTS, NEO_GRB + NEO_KHZ800),
+  Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800),
 };
 
 void setup() {
@@ -53,10 +43,9 @@ void setup() {
   msg = "";
 
   // initialize adafruitNeoPixels
-  for (int i = 0; i < 12; i++){
+  for (int i = 0; i < 6; i++){
     neoPixels[i].begin();
   }
-  npTest.begin();
 }
 
 void loop() {
@@ -90,7 +79,7 @@ void loop() {
 
 // blank - call this function between functions to updating digits
 void blank(Adafruit_NeoPixel np) {
-  np.fill(np.Color(0, 0, 0), 0, 28);
+  np.fill(np.Color(0, 0, 0), 0, 56);
 }
 // zero
 void displayZero(Adafruit_NeoPixel np){
