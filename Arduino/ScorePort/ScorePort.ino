@@ -1,14 +1,11 @@
-
 /*
- * Tutorial to connect Arduino to Android app and update ScorePort
+ * Tutorial to connect Arduino board to Android Smartphone
  * using Bluetooth connection
- * Boot strapped from Droiduino
- */ 
-//#include <SoftwareSerial.h>
+ * by Droiduino
+ */
 #include <Adafruit_NeoPixel.h>
 
 #define N_LEDS            28
-
 // pin assignment
 // time
 #define PIN_SECONDS_L      2    
@@ -25,12 +22,9 @@
 #define PIN_HOMESHOTS_R    11
 #define PIN_HOMESCORE_L    12      
 #define PIN_HOMESCORE_R    13
-// no more pins for period on the UNO board
 
-//const int ledPin = 13;  // to delete
-//bluetooth and android variables
-//SoftwareSerial BtSerial(0, 1);  // RX | TX
-String msg;                 // String to receive Android command requests via serial read
+const int ledPin = 13; // Built in LED in Arduino board
+String msg,cmd;  
 
 // store all neopixels in an array
 Adafruit_NeoPixel neoPixels[] = {
@@ -51,56 +45,42 @@ Adafruit_NeoPixel neoPixels[] = {
   Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE_R, NEO_GRB + NEO_KHZ800),
 };
 
-//Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, ledPin, NEO_GRB + NEO_KHZ800);  // to delete
-
 void setup() {
+  // Initialization
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW);
+  Serial.begin(9600); // Communication rate of the Bluetooth Module
+  msg = "";
 
-  // Initialization for communication with Android
-//  pinMode(ledPin, OUTPUT);
-//  digitalWrite(ledPin, LOW);
-  Serial.begin(9600);       // Communication rate of the Bluetooth Module
-  // BtSerial.begin(9600);
-  msg = "";       
-  
   // initialize adafruitNeoPixels
-  for (int i = 0; i < sizeof(neoPixels)-1; i++){
+  for (int i = 0; i < 12; i++){
     neoPixels[i].begin();
-    //displayZero(neoPixels[i]);    // set all to zero
   }
+  
 }
-
-//=================================================================================================//
 
 void loop() {
   
-  // To read message received from Android device
+  // To read message received from other Bluetooth Device
   if (Serial.available() > 0){ // Check if there is data coming
     msg = Serial.readString(); // Read the message as String
     Serial.println("Android Command: " + msg);
   }
 
   // Control LED in Arduino board
-//  if (msg == "<turn on>"){
-//    digitalWrite(ledPin, HIGH); // Turn on LED
-//    Serial.println("LED is turned on\n"); // Then send status message to Android
-//    msg = ""; // reset command
-//  } else {
-//    if (msg == "<turn off>"){
-//      digitalWrite(ledPin, LOW); // Turn off LED
-//      Serial.println("LED is turned off\n"); // Then send status message to Android
-//      msg = ""; // reset command
-//    }
-//  }
-
   if (msg == "<increment home score>"){
-    Serial.println("increment home score\n");
-    //displayOne(neoPixels[0]);             // this just displays "1" for now on secondsL
+    digitalWrite(ledPin, HIGH); // Turn on LED
+    Serial.println("LED is turned on\n"); // Then send status message to Android
+    //displayZero(neoPixels[1]);          // error here, stops sending cmds
+    //blank(neoPixels[1]);
     msg = ""; // reset command
-  }
+  } 
 
-  if (msg == "<decrement home score>"){          
-    Serial.println("decrement home score\n");
-    //displayZero(neoPixels[0]);            // this just displays "0" for now on secondsL
+  if (msg == "<decrement home score>"){
+    digitalWrite(ledPin, LOW); // Turn off LED
+    Serial.println("LED is turned off\n"); // Then send status message to Android
+    //displayOne(neoPixels[1]);            // 
+    //blank(neoPixels[1]);
     msg = ""; // reset command
   }
 
@@ -111,8 +91,8 @@ void loop() {
 //=================================================================================================//
 
 // blank - call this function between functions to updating digits
-static void blank(Adafruit_NeoPixel np, uint32_t c) {
-  np.fill(c, 0, 28);
+static void blank(Adafruit_NeoPixel np) {
+  np.fill(np.Color(0, 0, 0), 0, 28);
 }
 // zero
 static void displayZero(Adafruit_NeoPixel np){
@@ -122,6 +102,7 @@ static void displayZero(Adafruit_NeoPixel np){
   top(np, np.Color(255, 0, 0));
   topL(np, np.Color(255, 0, 0));
   topR(np, np.Color(255, 0, 0));
+  np.show();
 }
 // one 
 static void displayOne(Adafruit_NeoPixel np){
