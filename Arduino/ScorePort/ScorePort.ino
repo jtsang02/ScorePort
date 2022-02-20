@@ -56,7 +56,7 @@ void setup() {
   for (int i = 0; i < 12; i++){
     neoPixels[i].begin();
   }
-  
+  npTest.begin();
 }
 
 void loop() {
@@ -70,17 +70,15 @@ void loop() {
   // Control LED in Arduino board
   if (msg == "<increment home score>"){
     digitalWrite(ledPin, HIGH); // Turn on LED
-    Serial.println("LED is turned on\n"); // Then send status message to Android
-    //displayZero(neoPixels[1]);          // error here, stops sending cmds
-    //blank(neoPixels[1]);
+    Serial.println("Home score incremented\n"); // Then send status message to Android
     msg = ""; // reset command
   } 
 
   if (msg == "<decrement home score>"){
     digitalWrite(ledPin, LOW); // Turn off LED
-    Serial.println("LED is turned off\n"); // Then send status message to Android
-    //displayOne(neoPixels[1]);            // 
-    //blank(neoPixels[1]);
+    Serial.println("Home score decremented\n"); // Then send status message to Android
+    blank(neoPixels[1]);
+    displayZero(neoPixels[1]);            // 
     msg = ""; // reset command
   }
 
@@ -91,11 +89,11 @@ void loop() {
 //=================================================================================================//
 
 // blank - call this function between functions to updating digits
-static void blank(Adafruit_NeoPixel np) {
+void blank(Adafruit_NeoPixel np) {
   np.fill(np.Color(0, 0, 0), 0, 28);
 }
 // zero
-static void displayZero(Adafruit_NeoPixel np){
+void displayZero(Adafruit_NeoPixel np){
   bottom(np, np.Color(255, 0, 0));
   bottomL(np, np.Color(255, 0, 0));
   bottomR(np, np.Color(255, 0, 0));
@@ -105,13 +103,13 @@ static void displayZero(Adafruit_NeoPixel np){
   np.show();
 }
 // one 
-static void displayOne(Adafruit_NeoPixel np){
+void displayOne(Adafruit_NeoPixel np){
   bottomR(np, np.Color(255, 0, 0)); 
   topR(np, np.Color(255, 0, 0)); 
   np.show();
 }
 // two
-static void displayTwo(Adafruit_NeoPixel np){
+void displayTwo(Adafruit_NeoPixel np){
   bottom(np, np.Color(255, 0, 0));
   bottomL(np, np.Color(255, 0, 0));
   middle(np, np.Color(255, 0, 0));
