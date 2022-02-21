@@ -8,11 +8,12 @@
 #define N_LEDS  56
 // pin assignment
 // time
-#define TEST_PIN  12
+#define PIN_GUESTSCORE     6
+#define PIN_HOMESCORE      12
 
 String msg,cmd;
 
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, TEST_PIN, NEO_GRB + NEO_KHZ800); 
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800); 
 
 void setup() {
   // put your setup code here, to run once:
@@ -28,6 +29,7 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   //nine
+  strip.setPin(PIN_HOMESCORE);
   tensBottom(strip.Color(0, 0, 0));
   tensBottomR(strip.Color(0, 0, 0));
   tensMiddle(strip.Color(0, 0, 0));
@@ -46,6 +48,7 @@ void loop() {
   blank();
 
   //ten
+  strip.setPin(PIN_GUESTSCORE);
   tensBottomR(strip.Color(255, 0, 0));
   tensTopR(strip.Color(255, 0, 0));
   
