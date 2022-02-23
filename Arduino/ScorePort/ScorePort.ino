@@ -6,7 +6,6 @@
 #include <Adafruit_NeoPixel.h>
 
 #define N_LEDS            56
-
 // pin assignment
 // time
 #define PIN_SECONDS        3
@@ -20,15 +19,8 @@
 
 String msg, cmd;
 
-// create neopixel opbjects for: time/shot/score
-Adafruit_NeoPixel seconds = Adafruit_NeoPixel(N_LEDS, PIN_SECONDS, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel minutes = Adafruit_NeoPixel(N_LEDS, PIN_MINUTES, NEO_GRB + NEO_KHZ800);
-
-Adafruit_NeoPixel guestShots = Adafruit_NeoPixel(N_LEDS, PIN_GUESTSHOTS, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel guestScore = Adafruit_NeoPixel(N_LEDS, PIN_GUESTSCORE, NEO_GRB + NEO_KHZ800);
-
-Adafruit_NeoPixel homeShots = Adafruit_NeoPixel(N_LEDS, PIN_HOMESHOTS, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel homeScore = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800);
+// create neopixel object
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800); 
 // Argument 1 = Number of pixels in NeoPixel strip
 // Argument 2 = Arduino pin number (most are valid)
 // Argument 3 = Pixel type flags, add together as needed:
@@ -44,18 +36,8 @@ void setup() {
   msg = "";
 
   // initialize adafruitNeoPixels
-  seconds.begin();    //in initialize neoPixel strip object (req'd)
-  seconds.show();     // turn off all pixels in strip  
-  minutes.begin();
-  minutes.show();
-  guestShots.begin();
-  guestShots.show();
-  guestScore.begin();
-  guestScore.show();
-  homeShots.begin();
-  homeShots.show();
-  homeScore.begin();
-  homeScore.show();
+  strip.begin();    //in initialize neoPixel strip object (req'd)
+  strip.show();     // turn off all pixels in strip  
 }
 
 void loop() {
@@ -68,135 +50,130 @@ void loop() {
 
   // Change score on serial command
   if (msg == "<increment home score>") {
-    blank (homeScore);
-    displayTen (homeScore);
     Serial.println("Home score incremented\n"); // Then send status message to Android
+    blank();  // best to start by calling this func
+    strip.setPin(PIN_GUESTSCORE);  // always set pin
+    displayTen();
     msg = ""; // reset command
   }
 
   if (msg == "<decrement home score>") {
-    //blank(&homeScore);
-    //displayNine(&homeScore);
     Serial.println("Home score decremented\n"); // Then send status message to Android
+    blank();
+    strip.setPin(PIN_GUESTSCORE);
+    displayNine();
     msg = ""; // reset command
   }
-
 }
 
 //=================================================================================================//
-// functions to display each digit per neoPixel
+// functions to update patterns on 7-seg displays
 //=================================================================================================//
-
-// blank - call this function between functions to updating digits
-void blank(Adafruit_NeoPixel* strip) {
-  strip->fill(strip.Color(0, 0, 0), 0, 56);
+static void blank() {
+  strip.fill(strip.Color(0, 0, 0), 0, 56);
 }
 
-// nine
-static void displayNine(Adafruit_NeoPixel &strip) {
-  tensBottom(strip, strip.Color(0, 0, 0));
-  tensBottomR(strip, strip.Color(0, 0, 0));
-  tensMiddle(strip, strip.Color(0, 0, 0));
-  tensTop(strip, strip.Color(0, 0, 0));
-  tensTopL(strip, strip.Color(0, 0, 0));
-  tensTopR(strip, strip.Color(0, 0, 0));
-
-  onesBottom(strip, strip.Color(255, 0, 0));
-  onesBottomR(strip, strip.Color(255, 0, 0));
-  onesMiddle(strip, strip.Color(255, 0, 0));
-  onesTop(strip, strip.Color(255, 0, 0));
-  onesTopL(strip, strip.Color(255, 0, 0));
-  onesTopR(strip, strip.Color(255, 0, 0));
+//nine
+static void displayNine(){
+  tensBottom(strip.Color(0, 0, 0));
+  tensBottomR(strip.Color(0, 0, 0));
+  tensMiddle(strip.Color(0, 0, 0));
+  tensTop(strip.Color(0, 0, 0));
+  tensTopL(strip.Color(0, 0, 0));
+  tensTopR(strip.Color(0, 0, 0));
+  onesBottom(strip.Color(255, 0, 0));
+  onesBottomR(strip.Color(255, 0, 0));
+  onesMiddle(strip.Color(255, 0, 0));
+  onesTop(strip.Color(255, 0, 0));
+  onesTopL(strip.Color(255, 0, 0));
+  onesTopR(strip.Color(255, 0, 0));
   strip.show();
 }
-// ten
-static void displayTen(Adafruit_NeoPixel &strip) {
-  tensBottomR(strip, strip.Color(255, 0, 0));
-  tensTopR(strip, strip.Color(255, 0, 0));
 
-  onesBottom(strip, strip.Color(255, 0, 0));
-  onesBottomR(strip, strip.Color(255, 0, 0));
-  onesTop(strip, strip.Color(255, 0, 0));
-  onesTopL(strip, strip.Color(255, 0, 0));
-  onesTopR(strip, strip.Color(255, 0, 0));
+//ten
+static void displayTen(){
+  tensBottomR(strip.Color(255, 0, 0));
+  tensTopR(strip.Color(255, 0, 0));
+  onesBottom(strip.Color(255, 0, 0));
+  onesBottomR(strip.Color(255, 0, 0));
+  onesTop(strip.Color(255, 0, 0));
+  onesTopL(strip.Color(255, 0, 0));
+  onesTopR(strip.Color(255, 0, 0));
   strip.show();
 }
 
 //=================================================================================================//
-// helper functions to display digits
+//helper functions to update individual strips
 //=================================================================================================//
-
 //=================helper functions to display tens digits=====================//
-
-static void tensBottom(Adafruit_NeoPixel &strip, uint32_t c) {
-  for (uint16_t i = 4; i < 8; i++) {
+static void tensBottom(uint32_t c) {
+  for(uint16_t i=4; i<8; i++) {
     strip.setPixelColor(i, c);
   }
 }
-static void tensTop(Adafruit_NeoPixel &strip, uint32_t c) {
-  for (uint16_t i = 20; i < 24; i++) {
+static void tensTop(uint32_t c) {
+  for(uint16_t i=20; i<24; i++) {
     strip.setPixelColor(i, c);
   }
 }
-static void tensBottomL(Adafruit_NeoPixel &strip, uint32_t c) {
-  for (uint16_t i = 0; i < 4; i++) {
+static void tensBottomL(uint32_t c) {
+  for(uint16_t i=0; i<4; i++) {
     strip.setPixelColor(i, c);
   }
 }
-static void tensBottomR(Adafruit_NeoPixel &strip, uint32_t c) {
-  for (uint16_t i = 8; i < 12; i++) {
+static void tensBottomR(uint32_t c) {
+  for(uint16_t i=8; i<12; i++) {
     strip.setPixelColor(i, c);
   }
 }
-static void tensMiddle(Adafruit_NeoPixel &strip, uint32_t c) {
-  for (uint16_t i = 12; i < 16; i++) {
+static void tensMiddle(uint32_t c) {
+  for(uint16_t i=12; i<16; i++) {
     strip.setPixelColor(i, c);
   }
 }
-static void tensTopL(Adafruit_NeoPixel &strip, uint32_t c) {
-  for (uint16_t i = 16; i < 20; i++) {
+static void tensTopL(uint32_t c) {
+  for(uint16_t i=16; i<20; i++) {
     strip.setPixelColor(i, c);
   }
 }
-static void tensTopR(Adafruit_NeoPixel &strip, uint32_t c) {
-  for (uint16_t i = 24; i < 28; i++) {
+static void tensTopR(uint32_t c) {
+  for(uint16_t i=24; i<28; i++) {
     strip.setPixelColor(i, c);
   }
 }
 //=================helper functions to display ones digits=====================//
-
-static void onesBottom(Adafruit_NeoPixel &strip, uint32_t c) {
-  for (uint16_t i = 32; i < 36; i++) {
+static void onesBottom(uint32_t c) {
+  for(uint16_t i=32; i<36; i++) {
     strip.setPixelColor(i, c);
   }
 }
-static void onesTop(Adafruit_NeoPixel &strip, uint32_t c) {
-  for (uint16_t i = 48; i < 52; i++) {
+static void onesTop(uint32_t c) {
+  for(uint16_t i=48; i<52; i++) {
     strip.setPixelColor(i, c);
   }
 }
-static void onesBottomL(Adafruit_NeoPixel &strip, uint32_t c) {
-  for (uint16_t i = 28; i < 32; i++) {
+static void onesBottomL(uint32_t c) {
+  for(uint16_t i=28; i<32; i++) {
     strip.setPixelColor(i, c);
   }
 }
-static void onesBottomR(Adafruit_NeoPixel &strip, uint32_t c) {
-  for (uint16_t i = 36; i < 40; i++) {
+static void onesBottomR(uint32_t c) {
+  for(uint16_t i=36; i<40; i++) {
     strip.setPixelColor(i, c);
   }
 }
-static void onesMiddle(Adafruit_NeoPixel &strip, uint32_t c) {
-  for (uint16_t i = 40; i < 44; i++) {
+static void onesMiddle(uint32_t c) {
+  for(uint16_t i=40; i<44; i++) {
     strip.setPixelColor(i, c);
   }
 }
-static void onesTopL(Adafruit_NeoPixel &strip, uint32_t c) {
-  for (uint16_t i = 44; i < 48; i++) {
+static void onesTopL(uint32_t c) {
+  for(uint16_t i=44; i<48; i++) {
     strip.setPixelColor(i, c);
   }
 }
-static void onesTopR(Adafruit_NeoPixel &strip, uint32_t c) {
-  for (uint16_t i = 52; i < 56; i++) {
+static void onesTopR(uint32_t c) {
+  for(uint16_t i=52; i<56; i++) {
     strip.setPixelColor(i, c);
   }
 }
