@@ -30,6 +30,9 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
 
+// set default color
+uint32_t c = strip.Color(255, 0, 0);    
+
 void setup() {
   // Initialization
   Serial.begin(9600); // Communication rate of the Bluetooth Module
@@ -74,7 +77,7 @@ static void blank() {
 }
 
 // arr of function pointers to helper functions, in order of circuit configuration
-// function    - [index]
+// function()  - [index]
 // tensBottomL - 0
 // tensBottom  - 1
 // tensBottomR - 2
@@ -94,10 +97,6 @@ void (*displayStrip[])() = {
   onesBottomL, onesBottom, onesBottomR, onesMiddle, onesTopL, onesTop, onesTopR
 };
 
-// static void blankFirstDigit() {             // set tens to off
-//   strip.fill(strip.Color(0, 0, 0), 0, 28);
-// }
-
 //one
 static void displayOne() {
   (*displayStrip[7])();
@@ -114,18 +113,6 @@ static void displayTwo() {
   (*displayStrip[13])();
   strip.show();
 }
-
-// //three
-
-// //four
-
-// //five
-
-// //six
-
-// //seven
-
-// //eight
 
 // //nine
 // static void displayNine(){
@@ -152,27 +139,24 @@ static void displayTwo() {
 //   strip.show();
 // }
 
-//eleven
-
-//twelve
-
-
-
-
-
 // arr of patterns for 2 x 7-seg display, with 1 indicating LED on and 0 indicating LED off
-int patterns[9][14] = {{0, 0, 0, 0, 0, 0, 0,    0, 0, 0, 1, 0, 0, 0}, // zero
+int patterns[][14] = {{0, 0, 0, 0, 0, 0, 0,    0, 0, 0, 1, 0, 0, 0}, // zero
                        {0, 0, 0, 0, 0, 0, 0,    0, 0, 1, 0, 0, 0, 1}, // one
                        {0, 0, 0, 0, 0, 0, 0,    1, 1, 0, 1, 0, 1, 1}, // two
                        {0, 0, 0, 0, 0, 0, 0,    0, 1, 1, 1, 0, 1, 1}, // three
+                       {},                                            // four
+                       {},                                            // five
+                       {},                                            // six
+                       {},                                            // seven
+                       {},                                            // eight
+                       {0, 0, 0, 0, 0, 0, 0,    0, 1, 1, 1, 1, 1, 1}, // nine
+                       {0, 0, 1, 0, 0, 0, 1,    1, 1, 1, 0, 1, 1, 1}, // ten
                       };
 
 //=================================================================================================//
 //helper functions to update individual strips
 //=================================================================================================//
 //=================helper functions to display tens digits=====================//
-uint32_t c = strip.Color(255, 0, 0);
-
 static void tensBottom() {
   for(uint16_t i=4; i<8; i++) {
     strip.setPixelColor(i, c);
