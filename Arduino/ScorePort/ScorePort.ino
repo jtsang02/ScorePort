@@ -5,22 +5,18 @@
 */
 #include <Adafruit_NeoPixel.h>
 
-#define N_LEDS            56
+#define N_LEDS            56    // number of individual LEDs in one neopixel strip
 // pin assignment
-// time
-#define PIN_SECONDS        3
-#define PIN_MINUTES        4
-// guest score and shots
-#define PIN_GUESTSHOTS     5
-#define PIN_GUESTSCORE     11
-// home score and shots
-#define PIN_HOMESHOTS      7
-#define PIN_HOMESCORE      12
+#define PIN_SECONDS        3    // time - seconds
+#define PIN_MINUTES        4    // time - minutes
+#define PIN_GUESTSHOTS     5    // guestshots
+#define PIN_GUESTSCORE     11   // guestscore
+#define PIN_HOMESHOTS      7    //homeshots
+#define PIN_HOMESCORE      12   //homescore
 
-String msg, cmd;
+String msg, cmd;  // string to read and print serial commands
 
 // create neopixel object
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800); 
 // Argument 1 = Number of pixels in NeoPixel strip
 // Argument 2 = Arduino pin number (most are valid)
 // Argument 3 = Pixel type flags, add together as needed:
@@ -29,6 +25,7 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800); 
 
 // set default color
 uint32_t c = strip.Color(255, 0, 0);    
