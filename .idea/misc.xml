@@ -3,9 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/drawable-anydpi/ic_bulb.xml" value="0.37" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/drawable-anydpi/ic_bulb_light.xml" value="0.329" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/drawable/splogo.xml" value="0.2125" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/layout/activity_scoreboard.xml" value="0.264" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/layout/activity_select_device.xml" value="0.228125" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/layout/device_info_layout.xml" value="0.228125" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/layout/layout.xml" value="0.2552083333333333" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.329" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/layout/activity_main.xml" value="0.300390625" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/layout/activity_scoreboard.xml" value="0.300390625" />
       </map>
     </option>
   </component>

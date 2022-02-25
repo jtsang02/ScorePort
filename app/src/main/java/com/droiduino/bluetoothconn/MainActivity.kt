@@ -29,6 +29,7 @@ import java.io.OutputStream
 class MainActivity : AppCompatActivity() {
     private var deviceName: String? = null
     private var deviceAddress: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,11 +39,8 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         progressBar.visibility = View.GONE
-        val textViewInfo = findViewById<TextView>(R.id.textViewInfo)
-        val buttonToggle = findViewById<Button>(R.id.buttonToggle)
-        buttonToggle.isEnabled = false
-        val imageView = findViewById<ImageView>(R.id.imageView)
-        imageView.setBackgroundColor(resources.getColor(R.color.colorOff))
+        var buttonToScoreboard = findViewById<Button>(R.id.buttonToScoreboard)
+        buttonToScoreboard.isEnabled = false
 
         // If a bluetooth device has been selected from SelectDeviceActivity
         deviceName = intent.getStringExtra("deviceName")
@@ -62,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
             createConnectThread = CreateConnectThread(bluetoothAdapter, deviceAddress)
             createConnectThread!!.start()
+            // turn button to scoreboard visible
         }
 
         /*
@@ -74,25 +73,13 @@ class MainActivity : AppCompatActivity() {
                             toolbar.subtitle = "Connected to $deviceName"
                             progressBar.visibility = View.GONE
                             buttonConnect.isEnabled = true
-                            buttonToggle.isEnabled = true
+                            buttonToScoreboard.isEnabled = true
                         }
                         -1 -> {
                             toolbar.subtitle = "Device fails to connect"
                             progressBar.visibility = View.GONE
                             buttonConnect.isEnabled = true
-                        }
-                    }
-                    MESSAGE_READ -> {
-                        val arduinoMsg = msg.obj.toString() // Read message from Arduino
-                        when (arduinoMsg.toLowerCase()) {
-                            "led is turned on" -> {
-                                imageView.setBackgroundColor(resources.getColor(R.color.colorOn))
-                                textViewInfo.text = "Arduino Message : $arduinoMsg"
-                            }
-                            "led is turned off" -> {
-                                imageView.setBackgroundColor(resources.getColor(R.color.colorOff))
-                                textViewInfo.text = "Arduino Message : $arduinoMsg"
-                            }
+                            buttonToScoreboard.isEnabled = false
                         }
                     }
                 }
@@ -105,24 +92,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Button to ON/OFF LED on Arduino Board
-        buttonToggle.setOnClickListener {
-            var cmdText: String? = null
-            val btnState = buttonToggle.text.toString().toLowerCase()
-            when (btnState) {
-                "turn on" -> {
-                    buttonToggle.text = "Turn Off"
-                    // Command to turn on LED on Arduino. Must match with the command in Arduino code
-                    cmdText = "<turn on>"
-                }
-                "turn off" -> {
-                    buttonToggle.text = "Turn On"
-                    // Command to turn off LED on Arduino. Must match with the command in Arduino code
-                    cmdText = "<turn off>"
-                }
-            }
-            // Send command to Arduino board
-            connectedThread!!.write(cmdText)
+        //Button to move to scoreboard view
+        buttonToScoreboard.setOnClickListener {
+            val intent = Intent(this@MainActivity, Scoreboard::class.java)
+            startActivity(intent)
         }
     }
 
