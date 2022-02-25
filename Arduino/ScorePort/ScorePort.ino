@@ -6,6 +6,7 @@
 #include <Adafruit_NeoPixel.h>
 
 #define N_LEDS            56    // number of individual LEDs in one neopixel strip
+
 // pin assignment
 #define PIN_SECONDS        3    // time - seconds
 #define PIN_MINUTES        4    // time - minutes
@@ -14,7 +15,10 @@
 #define PIN_HOMESHOTS      7    //homeshots
 #define PIN_HOMESCORE      12   //homescore
 
-String msg, cmd;  // string to read and print serial commands
+// initialize score, shots and time to 0
+int homeScore, guestScore, homeShots, guestShots, t_secs, t_mins = 0;
+// string to read and print serial commands
+String msg, cmd;  
 
 // create neopixel object
 // Argument 1 = Number of pixels in NeoPixel strip
@@ -50,18 +54,77 @@ void loop() {
 
   // Change score on serial command
   if (msg == "<increment home score>") {
-    Serial.println("Home score incremented\n"); // Then send status message to Android
-    blank();  // best to start by calling this func
-    strip.setPin(PIN_GUESTSCORE);  // always set pin
-    displayTwo();
+    if (homeScore > 98)  return;
+    blank();                      // erase previous pattern 
+    strip.setPin(PIN_HOMESCORE);  // always set pin
+    homeScore++;
+    displayDigit(homeScore);
+    Serial.println("Home score incremented\n");   // send msg to android
     msg = ""; // reset command
   }
-
   if (msg == "<decrement home score>") {
-    Serial.println("Home score decremented\n"); // Then send status message to Android
+    if (homeScore < 1)  return;
+    blank();
+    strip.setPin(PIN_HOMESCORE);
+    homeScore--;
+    displayDigit(homeScore);
+    Serial.println("Home score decremented\n"); 
+    msg = ""; // reset command
+  }
+  if (msg == "<increment guest score>") {
+    if (guestScore > 98)  return;
+    blank();  
+    strip.setPin(PIN_GUESTSCORE);  // always set pin
+    guestScore++;
+    displayDigit(guestScore);
+    Serial.println("Guest score incremented\n"); 
+    msg = ""; // reset command
+  }  
+  if (msg == "<decrement guest score>") {
+    if (guestScore < 1)   return;
     blank();
     strip.setPin(PIN_GUESTSCORE);
-    displayOne();
+    guestScore--;
+    displayDigit(guestScore);
+    Serial.println("Guest score decremented\n"); 
+    msg = ""; // reset command
+  }  
+
+  // Change shots on serial command
+  if (msg == "<increment home shots>") {
+    if (homeShots > 98)   return;
+    blank();                      
+    strip.setPin(PIN_HOMESHOTS);  
+    homeShots++;
+    displayDigit(homeShots);
+    Serial.println("Home shots incremented\n"); 
+    msg = ""; // reset command
+  }
+  if (msg == "<decrement home shots>") {
+    if (homeShots < 1)  return;
+    blank();
+    strip.setPin(PIN_HOMESHOTS);
+    homeShots--;
+    displayDigit(homeShots);
+    Serial.println("Home score decremented\n"); 
+    msg = ""; // reset command
+  }
+  if (msg == "<increment guest shots>") {
+    if (guestShots > 98)  return;
+    blank();                      
+    strip.setPin(PIN_GUESTSHOTS);  
+    guestShots++;
+    displayDigit(guestShots);
+    Serial.println("Guest shots incremented\n"); 
+    msg = ""; // reset command
+  }
+  if (msg == "<decrement guest shots>") {
+    if (guestShots < 1)  return;
+    blank();                      
+    strip.setPin(PIN_GUESTSHOTS);  
+    guestShots--;
+    displayDigit(guestShots);
+    Serial.println("Guest shots decremented\n"); 
     msg = ""; // reset command
   }
 }
@@ -73,7 +136,7 @@ static void blank() {
   strip.fill(strip.Color(0, 0, 0), 0, 56);
 }
 
-// arr of function pointers to helper functions, in order of circuit configuration
+// Array of function pointers to helper functions listed in order of circuit configuration
 // function()  - [index]
 // tensBottomL - 0
 // tensBottom  - 1
@@ -94,50 +157,8 @@ void (*displayStrip[])() = {
   onesBottomL, onesBottom, onesBottomR, onesMiddle, onesTopL, onesTop, onesTopR
 };
 
-//one
-static void displayOne() {
-  (*displayStrip[7])();
-  (*displayStrip[11])();
-  strip.show();
-}
-
-//two
-static void displayTwo() {
-  (*displayStrip[8])();
-  (*displayStrip[7])();
-  (*displayStrip[10])();
-  (*displayStrip[12])(); 
-  (*displayStrip[13])();
-  strip.show();
-}
-
-// //nine
-// static void displayNine(){
-//   blankFirstDigit();
-//   onesBottom(strip.Color(255, 0, 0));
-//   onesBottomR(strip.Color(255, 0, 0));
-//   onesMiddle(strip.Color(255, 0, 0));
-//   onesTop(strip.Color(255, 0, 0));
-//   onesTopL(strip.Color(255, 0, 0));
-//   onesTopR(strip.Color(255, 0, 0));
-//   strip.show();
-// }
-
-// //ten
-// static void displayTen(){
-//   tensBottomR(strip.Color(255, 0, 0));
-//   tensTopR(strip.Color(255, 0, 0));
-//   onesBottom(strip.Color(255, 0, 0));
-//   onesBottomR(strip.Color(255, 0, 0));
-//   onesBottomL(strip.Color(255, 0, 0));
-//   onesTop(strip.Color(255, 0, 0));
-//   onesTopL(strip.Color(255, 0, 0));
-//   onesTopR(strip.Color(255, 0, 0));
-//   strip.show();
-// }
-
-// arr of patterns for 2 x 7-seg display, with 1 indicating LED on and 0 indicating LED off
-int patterns[][14] = {{0, 0, 0, 0, 0, 0, 0,    0, 0, 0, 1, 0, 0, 0}, // zero
+// Array of patterns for 2 x 7-seg display, with 1 indicating LED on and 0 indicating LED off
+int patterns[][14] = {{0, 0, 0, 0, 0, 0, 0,     1, 1, 1, 0, 1, 1, 1}, // zero
                        {0, 0, 0, 0, 0, 0, 0,    0, 0, 1, 0, 0, 0, 1}, // one
                        {0, 0, 0, 0, 0, 0, 0,    1, 1, 0, 1, 0, 1, 1}, // two
                        {0, 0, 0, 0, 0, 0, 0,    0, 1, 1, 1, 0, 1, 1}, // three
@@ -150,6 +171,16 @@ int patterns[][14] = {{0, 0, 0, 0, 0, 0, 0,    0, 0, 0, 1, 0, 0, 0}, // zero
                        {0, 0, 1, 0, 0, 0, 1,    1, 1, 1, 0, 1, 1, 1}, // ten
                       };
 
+/// Displays the pattern of any valid digit on the 14 segment neopixel pattern
+/// The parameter is any valid integer ranging between 0 to 99 to be displayed 
+static void displayDigit (int n) {
+  if (n < 0 || n > 99)                // safe guard from integers out of range
+    return;
+  for (int i = 0; i < 14; i++)
+    if (patterns[n][i] == 1)
+      (*displayStrip[i])(); 
+      strip.show();
+}
 //=================================================================================================//
 //helper functions to update individual strips
 //=================================================================================================//
