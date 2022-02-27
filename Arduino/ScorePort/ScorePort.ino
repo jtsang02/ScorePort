@@ -15,10 +15,8 @@
 #define PIN_HOMESHOTS      7    //homeshots
 #define PIN_HOMESCORE      12   //homescore
 
-// initialize score, shots and time to 0
-int homeScore, guestScore, homeShots, guestShots, t_secs, t_mins = 0;
-// string to read and print serial commands
-String msg, cmd;  
+int homeScore, guestScore, homeShots, guestShots, t_secs, t_mins = 0;   // initialize score, shots and time to 0
+String msg, cmd;                                                        // string to read and print serial commands
 
 // create neopixel object
 // Argument 1 = Number of pixels in NeoPixel strip
@@ -127,6 +125,7 @@ void loop() {
     Serial.println("Guest shots decremented\n"); 
     msg = ""; // reset command
   }
+
 }
 
 //=================================================================================================//
@@ -174,12 +173,11 @@ int patterns[][14] = {{0, 0, 0, 0, 0, 0, 0,     1, 1, 1, 0, 1, 1, 1}, // zero
 /// Displays the pattern of any valid digit on the 14 segment neopixel pattern
 /// The parameter is any valid integer ranging between 0 to 99 to be displayed 
 static void displayDigit (int n) {
-  if (n < 0 || n > 99)                // safe guard from integers out of range
-    return;
+  if (n < 0 || n > 99)  return;             // safe guard from integers out of range
   for (int i = 0; i < 14; i++)
     if (patterns[n][i] == 1)
       (*displayStrip[i])(); 
-      strip.show();
+    strip.show();
 }
 //=================================================================================================//
 //helper functions to update individual strips
