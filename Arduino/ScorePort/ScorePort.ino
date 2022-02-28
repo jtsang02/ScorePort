@@ -27,10 +27,10 @@ String msg, cmd;                                                        // strin
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800); 
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_RGBW + NEO_KHZ800); 
 
 // set default color
-uint32_t c = strip.Color(255, 0, 0);    
+uint32_t c = strip.Color(0, 255, 0, 0);    
 
 void setup() {
   // Initialization
@@ -132,7 +132,7 @@ void loop() {
 // functions to update patterns on 7-seg displays
 //=================================================================================================//
 static void blank() {
-  strip.fill(strip.Color(0, 0, 0), 0, 56);
+  strip.fill(strip.Color(0, 0, 0, 0), 0, 56);
 }
 
 // Array of function pointers to helper functions listed in order of circuit configuration
@@ -157,7 +157,7 @@ void (*displayStrip[])() = {
 };
 
 // Array of patterns for 2 x 7-seg display, with 1 indicating LED on and 0 indicating LED off
-int patterns[][14] = {{0, 0, 0, 0, 0, 0, 0,     1, 1, 1, 0, 1, 1, 1}, // zero
+int patterns[][14] =  {{0, 0, 0, 0, 0, 0, 0,     1, 1, 1, 0, 1, 1, 1}, // zero
                        {0, 0, 0, 0, 0, 0, 0,    0, 0, 1, 0, 0, 0, 1}, // one
                        {0, 0, 0, 0, 0, 0, 0,    1, 1, 0, 1, 0, 1, 1}, // two
                        {0, 0, 0, 0, 0, 0, 0,    0, 1, 1, 1, 0, 1, 1}, // three
