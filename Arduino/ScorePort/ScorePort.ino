@@ -15,10 +15,8 @@
 #define PIN_HOMESHOTS 7   // homeshots
 #define PIN_HOMESCORE 12  // homescore
 
-// initialize score, shots and time to 0
-int homeScore, guestScore, homeShots, guestShots, t_secs, t_mins = 0;
-// string to read and print serial commands
-String msg, cmd;
+int homeScore, guestScore, homeShots, guestShots, t_secs, t_mins = 0;   // initialize score, shots and time to 0
+String msg, cmd;                                                        // string to read and print serial commands
 
 // create neopixel object
 // Argument 1 = Number of pixels in NeoPixel strip
@@ -29,10 +27,10 @@ String msg, cmd;
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_RGBW + NEO_KHZ800); 
 
 // set default color
-uint32_t c = strip.Color(255, 0, 0);
+uint32_t c = strip.Color(0, 255, 0, 0);    
 
 void setup()
 {
@@ -146,14 +144,14 @@ void loop()
     Serial.println("Guest shots decremented\n");
     msg = ""; // reset command
   }
+
 }
 
 //=================================================================================================//
 // functions to update patterns on 7-seg displays
 //=================================================================================================//
-static void blank()
-{
-  strip.fill(strip.Color(0, 0, 0), 0, 56);
+static void blank() {
+  strip.fill(strip.Color(0, 0, 0, 0), 0, 56);
 }
 
 // Array of function pointers to helper functions listed in order of circuit configuration
