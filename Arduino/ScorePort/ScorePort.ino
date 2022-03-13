@@ -8,20 +8,20 @@
 #define N_LEDS 56 // number of individual LEDs in one neopixel strip
 
 // pin assignment
-#define PIN_SECONDS 11     // time - seconds
-#define PIN_MINUTES 12     // time - minutes
-#define PIN_GUESTSHOTS 5  // guestshots
-#define PIN_GUESTSCORE 3  // guestscore
-#define PIN_HOMESHOTS 7   // homeshots
+#define PIN_SECONDS 11   // time - seconds
+#define PIN_MINUTES 12   // time - minutes
+#define PIN_GUESTSHOTS 5 // guestshots
+#define PIN_GUESTSCORE 3 // guestscore
+#define PIN_HOMESHOTS 7  // homeshots
 #define PIN_HOMESCORE 4  // homescore
 
-bool countDown = true;                                                // for setting whether clock counts up or down
+bool countDown = true; // for setting whether clock counts up or down
 bool clockOn = false;
 int homeScore, guestScore, homeShots, guestShots = 0; // initialize score, shots and seconds to 0
-int periodLength = 19;                                   // set period time  
-int t_mins = (countDown ? periodLength : 0);							// initialize minutes
+int periodLength = 19;                                // set period time
+int t_mins = (countDown ? periodLength : 0);          // initialize minutes
 int t_secs = 0;
-String msg, cmd;                                                      // string to read and print serial commands
+String msg, cmd; // string to read and print serial commands
 
 // create neopixel object
 // Argument 1 = Number of pixels in NeoPixel strip
@@ -50,15 +50,15 @@ void setup()
   strip.show();  // turn off all pixels in strip
 
   // initialize clock to 20 min
-  	strip.setPin(PIN_SECONDS);
-    blank();
-  	displayDigit(t_secs);
-    strip.show();
-  	strip.setPin(PIN_MINUTES); 
-    blank();
-  	displayDigit(t_mins);
-    strip.show();
-    delay(1000);
+  strip.setPin(PIN_SECONDS);
+  blank();
+  displayDigit(t_secs);
+  strip.show();
+  strip.setPin(PIN_MINUTES);
+  blank();
+  displayDigit(t_mins);
+  strip.show();
+  delay(1000);
 }
 
 void loop()
@@ -164,11 +164,11 @@ void loop()
   // update time on serial command
   if (msg == "<start time>")
   {
-  	clockOn = true;    // turn on clock
+    clockOn = true; // turn on clock
   }
   if (msg == "<stop time>")
   {
-    clockOn = false;   // stop clock
+    clockOn = false; // stop clock
   }
   if (msg == "<reset time>")
   {
@@ -177,21 +177,22 @@ void loop()
   // functions that always run for time based on if clock is on
   if (clockOn)
     clockRunning();
-
 }
 //=================================================================================================//
 // functions for running time
 //=================================================================================================//
-static void clockRunning() {  // main function to handle time
+static void clockRunning()
+{ // main function to handle time
 
-  if (t_mins > 0 && t_secs == 0){  // reset seconds from 00 to 59
-    t_secs = 19;                   // CHANGE TO 59 ON FULL SKETCH
+  if (t_mins > 0 && t_secs == 0)
+  {              // reset seconds from 00 to 59
+    t_secs = 19; // CHANGE TO 59 ON FULL SKETCH
     t_mins--;
     strip.setPin(PIN_MINUTES);
     blank();
     displayDigit(t_mins);
   }
-  else if (t_secs > 0)           // decrement seconds only
+  else if (t_secs > 0) // decrement seconds only
     t_secs--;
   strip.setPin(PIN_SECONDS);
   blank();
@@ -253,93 +254,93 @@ int patterns[][14] = {
     {0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1}, // eighteen
     {0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1}, // nineteen
                                                 /*
-                                                {1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // twenty
-                                                {1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // twenty one
-                                                {1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // twenty two
-                                                {1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1}, // twenty three
-                                                {1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1}, // twenty four
-                                                {1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0}, // twenty five
-                                                {1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0}, // twenty six
-                                                {1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1}, // twenty seven
-                                                {1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // twenty eight
-                                                {1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // twenty nine
+    {1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // twenty
+    {1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // twenty one
+    {1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // twenty two
+    {1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1}, // twenty three
+    {1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1}, // twenty four
+    {1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0}, // twenty five
+    {1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0}, // twenty six
+    {1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1}, // twenty seven
+    {1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // twenty eight
+    {1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // twenty nine
                                             
-                                                {0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // thirty
-                                                {0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // thirty one
-                                                {0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // thirty two
-                                                {0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1}, // thirty three
-                                                {0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1}, // thirty four
-                                                {0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0}, // thirty five
-                                                {0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0}, // thirty six
-                                                {0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1}, // thirty seven
-                                                {0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // thirty eight
-                                                {0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // thirty nine
+    {0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // thirty
+    {0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // thirty one
+    {0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // thirty two
+    {0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1}, // thirty three
+    {0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1}, // thirty four
+    {0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0}, // thirty five
+    {0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0}, // thirty six
+    {0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1}, // thirty seven
+    {0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // thirty eight
+    {0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // thirty nine
                                             
-                                                {0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1}, // forty
-                                                {0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1}, // forty one
-                                                {0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1}, // forty two
-                                                {0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1}, // forty three
-                                                {0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1}, // forty four
-                                                {0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0}, // forty five
-                                                {0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0}, // forty six
-                                                {0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1}, // forty seven
-                                                {0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1}, // forty eight
-                                                {0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1}, // forty nine
+    {0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1}, // forty
+    {0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1}, // forty one
+    {0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1}, // forty two
+    {0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1}, // forty three
+    {0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1}, // forty four
+    {0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0}, // forty five
+    {0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0}, // forty six
+    {0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1}, // forty seven
+    {0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1}, // forty eight
+    {0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1}, // forty nine
                                             
-                                                {0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1}, // fifty
-                                                {0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1}, //  fifty one
-                                                {0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1}, //  fifty two
-                                                {0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1}, // fifty three
-                                                {0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1}, //  fifty four
-                                                {0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0}, //  fifty five
-                                                {0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0}, // fifty six
-                                                {0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1}, // fiftyseven
-                                                {0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1}, //  fifty eight
-                                                {0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1}, // fifty nine
+    {0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1}, // fifty
+    {0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1}, //  fifty one
+    {0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1}, //  fifty two
+    {0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1}, // fifty three
+    {0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1}, //  fifty four
+    {0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0}, //  fifty five
+    {0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0}, // fifty six
+    {0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1}, // fiftyseven
+    {0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1}, //  fifty eight
+    {0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1}, // fifty nine
                                             
-                                                {1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1}, // sixty
-                                                {1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1}, // sixty one
-                                                {1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1}, // sixty two
-                                                {1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1}, // sixty three
-                                                {1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1}, // sixty four
-                                                {1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0}, // sixty five
-                                                {1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0}, // sixty six
-                                                {1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1}, // sixty seven
-                                                {1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1}, // sixty eight
-                                                {1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1}, // sixty nine
+    {1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1}, // sixty
+    {1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1}, // sixty one
+    {1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1}, // sixty two
+    {1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1}, // sixty three
+    {1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1}, // sixty four
+    {1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0}, // sixty five
+    {1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0}, // sixty six
+    {1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1}, // sixty seven
+    {1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1}, // sixty eight
+    {1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1}, // sixty nine
                                             
-                                                {0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // seventy
-                                                {0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // seventy one
-                                                {0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // seventy two
-                                                {0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1}, // seventy three
-                                                {0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1}, // seventy four
-                                                {0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0}, // seventy five
-                                                {0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0}, // seventy six
-                                                {0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1}, // seventyseven
-                                                {0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // seventy eight
-                                                {0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // seventy nine
+    {0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // seventy
+    {0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // seventy one
+    {0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // seventy two
+    {0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1}, // seventy three
+    {0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1}, // seventy four
+    {0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0}, // seventy five
+    {0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0}, // seventy six
+    {0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1}, // seventyseven
+    {0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // seventy eight
+    {0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // seventy nine
                                             
-                                                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // eighty
-                                                {1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // eighty one
-                                                {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // eighty two
-                                                {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1}, // eighty three
-                                                {1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1}, // eighty four
-                                                {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0}, // eighty five
-                                                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}, // eighty six
-                                                {1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1}, // eightyseven
-                                                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // eighty eight
-                                                {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // eighty nine
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // eighty
+    {1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // eighty one
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // eighty two
+    {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1}, // eighty three
+    {1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1}, // eighty four
+    {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0}, // eighty five
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}, // eighty six
+    {1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1}, // eightyseven
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // eighty eight
+    {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // eighty nine
                                             
-                                                {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // ninty
-                                                {0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // ninty one
-                                                {0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // ninty two
-                                                {0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1}, // ninty three
-                                                {0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1}, // ninty four
-                                                {0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0}, // ninty five
-                                                {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}, // ninty six
-                                                {0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1}, // ninty seven
-                                                {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // ninty eight
-                                                {0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // ninty nine */
+    {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // ninty
+    {0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // ninty one
+    {0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // ninty two
+    {0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1}, // ninty three
+    {0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1}, // ninty four
+    {0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0}, // ninty five
+    {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}, // ninty six
+    {0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1}, // ninty seven
+    {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // ninty eight
+    {0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // ninty nine */
 };
 
 /// Displays the pattern of any valid digit on the 14 segment neopixel pattern
@@ -356,108 +357,76 @@ static void displayDigit(int n)
 //=================================================================================================//
 // helper functions to update individual strips
 //=================================================================================================//
+
 //=================helper functions to display tens digits=====================//
 static void tensBottom()
 {
   for (uint16_t i = 4; i < 8; i++)
-  {
     strip.setPixelColor(i, c);
-  }
 }
 static void tensTop()
 {
   for (uint16_t i = 20; i < 24; i++)
-  {
     strip.setPixelColor(i, c);
-  }
 }
 static void tensBottomL()
 {
   for (uint16_t i = 0; i < 4; i++)
-  {
     strip.setPixelColor(i, c);
-  }
 }
 static void tensBottomR()
 {
   for (uint16_t i = 8; i < 12; i++)
-  {
     strip.setPixelColor(i, c);
-  }
 }
 static void tensMiddle()
 {
   for (uint16_t i = 12; i < 16; i++)
-  {
     strip.setPixelColor(i, c);
-  }
 }
 static void tensTopL()
 {
   for (uint16_t i = 16; i < 20; i++)
-  {
     strip.setPixelColor(i, c);
-  }
 }
 static void tensTopR()
 {
   for (uint16_t i = 24; i < 28; i++)
-  {
     strip.setPixelColor(i, c);
-  }
 }
 //=================helper functions to display ones digits=====================//
 static void onesBottom()
 {
   for (uint16_t i = 32; i < 36; i++)
-  {
     strip.setPixelColor(i, c);
-  }
 }
 static void onesTop()
 {
   for (uint16_t i = 48; i < 52; i++)
-  {
     strip.setPixelColor(i, c);
-  }
 }
 static void onesBottomL()
 {
   for (uint16_t i = 28; i < 32; i++)
-  {
     strip.setPixelColor(i, c);
-  }
 }
 static void onesBottomR()
 {
   for (uint16_t i = 36; i < 40; i++)
-  {
     strip.setPixelColor(i, c);
-  }
 }
 static void onesMiddle()
 {
   for (uint16_t i = 40; i < 44; i++)
-  {
     strip.setPixelColor(i, c);
-  }
 }
 static void onesTopL()
 {
   for (uint16_t i = 44; i < 48; i++)
-  {
     strip.setPixelColor(i, c);
-  }
 }
 static void onesTopR()
 {
   for (uint16_t i = 52; i < 56; i++)
-  {
     strip.setPixelColor(i, c);
-  }
 }
-
-//
-// https://www.tinkercad.com/things/ipT19Fd9uXQ-fabulous-luulia-amur/editel?sharecode=mgtLCh8mOluWIWKFgePiFf8DEEMq6n7NJTlxXU7f0uQ
-// function pter arr
-// https://forum.arduino.cc/t/array-of-functions/429541/2
