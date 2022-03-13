@@ -8,17 +8,19 @@
 #define N_LEDS 56 // number of individual LEDs in one neopixel strip
 
 // pin assignment
-#define PIN_SECONDS 3     // time - seconds
-#define PIN_MINUTES 4     // time - minutes
+#define PIN_SECONDS 11     // time - seconds
+#define PIN_MINUTES 12     // time - minutes
 #define PIN_GUESTSHOTS 5  // guestshots
-#define PIN_GUESTSCORE 11 // guestscore
+#define PIN_GUESTSCORE 3  // guestscore
 #define PIN_HOMESHOTS 7   // homeshots
-#define PIN_HOMESCORE 12  // homescore
+#define PIN_HOMESCORE 4  // homescore
 
 bool countDown = true;                                                // for setting whether clock counts up or down
 bool clockOn = false;
-int homeScore, guestScore, homeShots, guestShots, t_secs = 0; // initialize score, shots and time to 0
-int t_mins = (countDown ? 20 : 0);
+int homeScore, guestScore, homeShots, guestShots = 0; // initialize score, shots and seconds to 0
+int periodLength = 19;                                   // set period time  
+int t_mins = (countDown ? periodLength : 0);							// initialize minutes
+int t_secs = 0;
 String msg, cmd;                                                      // string to read and print serial commands
 
 // create neopixel object
@@ -48,15 +50,19 @@ void setup()
   strip.show();  // turn off all pixels in strip
 
   // initialize clock to 20 min
-  strip.setPin(PIN_MINUTES);   
-  displayDigit(t_mins);       
-  strip.setPin(PIN_SECONDS);
-  displayDigit(0);
+  	strip.setPin(PIN_SECONDS);
+    blank();
+  	displayDigit(t_secs);
+    strip.show();
+  	strip.setPin(PIN_MINUTES); 
+    blank();
+  	displayDigit(t_mins);
+    strip.show();
+    delay(1000);
 }
 
 void loop()
 {
-
   // To read message received from other Bluetooth Device
   if (Serial.available() > 0)
   {                            // Check if there is data coming
@@ -158,32 +164,40 @@ void loop()
   // update time on serial command
   if (msg == "<start time>")
   {
-    clockOn = true;
-    // start clock
+  	clockOn = true;    // turn on clock
   }
   if (msg == "<stop time>")
   {
-    clockOn = false;
-    // stop clock
+    clockOn = false;   // stop clock
   }
   if (msg == "<reset time>")
   {
-    clockOn = false;
     // reset clock
   }
+  // functions that always run for time based on if clock is on
+  if (clockOn)
+    clockRunning();
+
 }
 //=================================================================================================//
-// functions for time
+// functions for running time
 //=================================================================================================//
 static void clockRunning() {  // main function to handle time
-  if (countDown) {                    // handle countdown first
-    if (t_mins > 0 && t_secs == 0){
-      t_secs = 59;
-    }
-    t_secs--;
-    displayDigit(t_secs);
+
+  if (t_mins > 0 && t_secs == 0){  // reset seconds from 00 to 59
+    t_secs = 19;                   // CHANGE TO 59 ON FULL SKETCH
+    t_mins--;
+    strip.setPin(PIN_MINUTES);
+    blank();
+    displayDigit(t_mins);
   }
-  
+  else if (t_secs > 0)           // decrement seconds only
+    t_secs--;
+  strip.setPin(PIN_SECONDS);
+  blank();
+  displayDigit(t_secs);
+
+  // wait 1s
   delay(1000);
 }
 
@@ -215,7 +229,6 @@ void (*displayStrip[])() = {
     tensBottomL, tensBottom, tensBottomR, tensMiddle, tensTopL, tensTop, tensTopR,
     onesBottomL, onesBottom, onesBottomR, onesMiddle, onesTopL, onesTop, onesTopR};
 
-// Array of patterns for 2 x 7-seg display, with 1 indicating LED on and 0 indicating LED off
 // Array of patterns for 2 x 7-seg display, with 1 indicating LED on and 0 indicating LED off
 int patterns[][14] = {
     {1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // zero
