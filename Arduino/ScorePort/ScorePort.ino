@@ -15,13 +15,12 @@
 #define PIN_HOMESHOTS 7  // homeshots
 #define PIN_HOMESCORE 4  // homescore
 
-bool countDown = true; // for setting whether clock counts up or down
+bool countDown = false; // for setting whether clock counts up or down
 bool clockOn = false;
-int homeScore, guestScore, homeShots, guestShots = 0; // initialize score, shots and seconds to 0
-int periodLength = 19;                                // set period time
-int t_mins = (countDown ? periodLength : 0);          // initialize minutes
-int t_secs = 0;
-String msg, cmd; // string to read and print serial commands
+int homeScore, guestScore, homeShots, guestShots, t_secs = 0; // initialize score, shots and seconds to 0
+int periodLength = 3;                                         // set period time
+int t_mins = (countDown ? periodLength : 0);                  // initialize minutes
+String msg;                                                   // string to read and print serial commands
 
 // create neopixel object
 // Argument 1 = Number of pixels in NeoPixel strip
@@ -162,38 +161,95 @@ void loop()
     msg = ""; // reset command
   }
   // update time on serial command
-  if (msg == "<start time>")
+  if (msg == "<start>")
   {
     clockOn = true; // turn on clock
+    Serial.println("Clock started\n");
+    msg = "";
   }
-  if (msg == "<stop time>")
+  if (msg == "<stop>")
   {
     clockOn = false; // stop clock
+    Serial.println("Clock stopped\n");
+    msg = "";
   }
-  if (msg == "<reset time>")
+  if (msg == "<reset>")
   {
-    // reset clock
+    clockOn = false; // pause to reset clock
+    resetClock();
+    Serial.println("Clock reset\n");
+    msg = "";
   }
+  if (msg == "<countdown mode>")
+  { // change mode to countdown only when clock is stopped
+    if (!clockOn)
+    {
+      countDown = true;
+      Serial.println("countdown mode set\n");
+    }
+    msg = "";
+  }
+  if (msg == "<countup mode>")
+  { // change mode to countup only when clock is stopped
+    if (!clockOn)
+    {
+      countDown = false;
+      Serial.println("countup mode set\n");
+    }
+    msg = "";
+  }
+
   // functions that always run for time based on if clock is on
   if (clockOn)
     clockRunning();
 }
 //=================================================================================================//
-// functions for running time
+// functions for time
 //=================================================================================================//
-static void clockRunning()
-{ // main function to handle time
-
-  if (t_mins > 0 && t_secs == 0)
-  {              // reset seconds from 00 to 59
-    t_secs = 19; // CHANGE TO 59 ON FULL SKETCH
-    t_mins--;
-    strip.setPin(PIN_MINUTES);
-    blank();
-    displayDigit(t_mins);
+static void clockRunning() // main function to handle time
+{
+  if (countDown)
+  {
+    if (t_mins > 0 && t_secs == 0)
+    {              // reset seconds from 00 to 59
+      t_secs = 19; // CHANGE TO 59 ON FULL SKETCH
+      t_mins--;
+      // display minutes
+      strip.setPin(PIN_MINUTES);
+      blank();
+      displayDigit(t_mins);
+    }
+    else if (t_secs > 0) // decrement seconds only
+      t_secs--;
+    else
+    {                  // when clock has gone to 00:00
+      clockOn = false; // turn clock off so loop wont enter this function again
+      Serial.println("Period over");
+      return;
+    }
   }
-  else if (t_secs > 0) // decrement seconds only
-    t_secs--;
+  else
+  {
+    if (t_mins < periodLength && t_secs == 19) // reset seconds from 59 to 00
+    {
+      t_secs = 0;
+      t_mins++;
+      // display minutes
+      strip.setPin(PIN_MINUTES);
+      blank();
+      displayDigit(t_mins);
+    }
+    else if (t_mins != periodLength && t_secs < 19) // increment seconds only -- CHANGE TO 59 ON FULL SKETCH
+      t_secs++;
+    else
+    {                  // when clock has reached period length
+      clockOn = false; // turn clock off so loop wont enter this function again
+      Serial.println("Period over");
+      return;
+    }
+  }
+
+  // display seconds
   strip.setPin(PIN_SECONDS);
   blank();
   displayDigit(t_secs);
@@ -201,7 +257,18 @@ static void clockRunning()
   // wait 1s
   delay(1000);
 }
-
+static void resetClock() // reset clock
+{
+  t_mins = (countDown ? periodLength : 0);
+  t_secs = 0;
+  // display digits
+  strip.setPin(PIN_MINUTES);
+  blank();
+  displayDigit(t_mins);
+  strip.setPin(PIN_SECONDS);
+  blank();
+  displayDigit(t_secs);
+}
 //=================================================================================================//
 // functions to update patterns on 7-seg displays
 //=================================================================================================//

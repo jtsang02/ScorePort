@@ -1,0 +1,22 @@
+//Serial commands for score:
+
+<increment home score>
+<decrement home score>
+<increment guest score>
+<decrement guest score>
+<increment home shots>
+<decrement home shots>
+<increment guest shots>
+<decrement guest shots>
+
+https://www.tinkercad.com/things/h8cbnCAmsZ4-1score-segment-leds/editel?sharecode=FjUpfV3TMvTk0h-rpqfup-ZYqf5LUnMXKbBtl5f3qfk
+
+//Serial commands for time:
+
+<start>
+<stop>
+<reset>
+<countdown mode>
+<countup mode>
+
+https://www.tinkercad.com/things/ipT19Fd9uXQ-fabulous-luulia-amur/editel?sharecode=mgtLCh8mOluWIWKFgePiFf8DEEMq6n7NJTlxXU7f0uQ
