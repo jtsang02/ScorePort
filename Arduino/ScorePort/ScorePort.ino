@@ -1,7 +1,5 @@
 /*
-   Tutorial to connect Arduino board to Android Smartphone
-   using Bluetooth connection
-   by Droiduino
+   Code for Arduino microcontroller to receive commands from android to update time and score.
 */
 #include <Adafruit_NeoPixel.h>
 
