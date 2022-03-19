@@ -13,10 +13,10 @@
 #define PIN_HOMESHOTS 7  // homeshots
 #define PIN_HOMESCORE 4  // homescore
 
-bool countDown = false; // for setting whether clock counts up or down
+bool countDown = true; // for setting whether clock counts up or down
 bool clockOn = false;
 int homeScore, guestScore, homeShots, guestShots, t_secs = 0; // initialize score, shots and seconds to 0
-int periodLength = 3;                                         // set period time
+int periodLength = 20;                                        // set period time
 int t_mins = (countDown ? periodLength : 0);                  // initialize minutes
 String msg;                                                   // string to read and print serial commands
 
@@ -50,11 +50,9 @@ void setup()
   strip.setPin(PIN_SECONDS);
   blank();
   displayDigit(t_secs);
-  strip.show();
   strip.setPin(PIN_MINUTES);
   blank();
   displayDigit(t_mins);
-  strip.show();
   delay(1000);
 }
 
@@ -76,7 +74,7 @@ void loop()
     strip.setPin(PIN_HOMESCORE); // always set pin
     homeScore++;
     displayDigit(homeScore);
-    Serial.println("Home score incremented\n"); // send msg to android
+    Serial.println(F("Home score incremented\n")); // send msg to android
     msg = "";                                   // reset command
   }
   if (msg == "<decrement home score>")
@@ -87,7 +85,7 @@ void loop()
     strip.setPin(PIN_HOMESCORE);
     homeScore--;
     displayDigit(homeScore);
-    Serial.println("Home score decremented\n");
+    Serial.println(F("Home score decremented\n"));
     msg = ""; // reset command
   }
   if (msg == "<increment guest score>")
@@ -98,7 +96,7 @@ void loop()
     strip.setPin(PIN_GUESTSCORE); // always set pin
     guestScore++;
     displayDigit(guestScore);
-    Serial.println("Guest score incremented\n");
+    Serial.println(F("Guest score incremented\n"));
     msg = ""; // reset command
   }
   if (msg == "<decrement guest score>")
@@ -109,7 +107,7 @@ void loop()
     strip.setPin(PIN_GUESTSCORE);
     guestScore--;
     displayDigit(guestScore);
-    Serial.println("Guest score decremented\n");
+    Serial.println(F("Guest score decremented\n"));
     msg = ""; // reset command
   }
 
@@ -122,7 +120,7 @@ void loop()
     strip.setPin(PIN_HOMESHOTS);
     homeShots++;
     displayDigit(homeShots);
-    Serial.println("Home shots incremented\n");
+    Serial.println(F("Home shots incremented\n"));
     msg = ""; // reset command
   }
   if (msg == "<decrement home shots>")
@@ -133,7 +131,7 @@ void loop()
     strip.setPin(PIN_HOMESHOTS);
     homeShots--;
     displayDigit(homeShots);
-    Serial.println("Home score decremented\n");
+    Serial.println(F("Home score decremented\n"));
     msg = ""; // reset command
   }
   if (msg == "<increment guest shots>")
@@ -144,7 +142,7 @@ void loop()
     strip.setPin(PIN_GUESTSHOTS);
     guestShots++;
     displayDigit(guestShots);
-    Serial.println("Guest shots incremented\n");
+    Serial.println(F("Guest shots incremented\n"));
     msg = ""; // reset command
   }
   if (msg == "<decrement guest shots>")
@@ -155,27 +153,27 @@ void loop()
     strip.setPin(PIN_GUESTSHOTS);
     guestShots--;
     displayDigit(guestShots);
-    Serial.println("Guest shots decremented\n");
+    Serial.println(F("Guest shots decremented\n"));
     msg = ""; // reset command
   }
   // update time on serial command
   if (msg == "<start>")
   {
     clockOn = true; // turn on clock
-    Serial.println("Clock started\n");
+    Serial.println(F("Clock started\n"));
     msg = "";
   }
   if (msg == "<stop>")
   {
     clockOn = false; // stop clock
-    Serial.println("Clock stopped\n");
+    Serial.println(F("Clock stopped\n"));
     msg = "";
   }
   if (msg == "<reset>")
   {
     clockOn = false; // pause to reset clock
     resetClock();
-    Serial.println("Clock reset\n");
+    Serial.println(F("Clock reset\n"));
     msg = "";
   }
   if (msg == "<countdown mode>")
@@ -183,7 +181,7 @@ void loop()
     if (!clockOn)
     {
       countDown = true;
-      Serial.println("countdown mode set\n");
+      Serial.println(F("countdown mode set\n"));
     }
     msg = "";
   }
@@ -192,7 +190,7 @@ void loop()
     if (!clockOn)
     {
       countDown = false;
-      Serial.println("countup mode set\n");
+      Serial.println(F("countup mode set\n"));
     }
     msg = "";
   }
@@ -210,7 +208,7 @@ static void clockRunning() // main function to handle time
   {
     if (t_mins > 0 && t_secs == 0)
     {              // reset seconds from 00 to 59
-      t_secs = 19; // CHANGE TO 59 ON FULL SKETCH
+      t_secs = 59; // CHANGE TO 59 ON FULL SKETCH
       t_mins--;
       // display minutes
       strip.setPin(PIN_MINUTES);
@@ -222,13 +220,13 @@ static void clockRunning() // main function to handle time
     else
     {                  // when clock has gone to 00:00
       clockOn = false; // turn clock off so loop wont enter this function again
-      Serial.println("Period over");
+      Serial.println(F("Period over\n"));
       return;
     }
   }
   else
   {
-    if (t_mins < periodLength && t_secs == 19) // reset seconds from 59 to 00
+    if (t_mins < periodLength && t_secs == 59) // reset seconds from 59 to 00
     {
       t_secs = 0;
       t_mins++;
@@ -237,12 +235,12 @@ static void clockRunning() // main function to handle time
       blank();
       displayDigit(t_mins);
     }
-    else if (t_mins != periodLength && t_secs < 19) // increment seconds only -- CHANGE TO 59 ON FULL SKETCH
+    else if (t_mins != periodLength && t_secs < 59) // increment seconds only -- CHANGE TO 59 ON FULL SKETCH
       t_secs++;
     else
     {                  // when clock has reached period length
       clockOn = false; // turn clock off so loop wont enter this function again
-      Serial.println("Period over");
+      Serial.println(F("Period over\n"));
       return;
     }
   }
@@ -296,7 +294,7 @@ void (*displayStrip[])() = {
     onesBottomL, onesBottom, onesBottomR, onesMiddle, onesTopL, onesTop, onesTopR};
 
 // Array of patterns for 2 x 7-seg display, with 1 indicating LED on and 0 indicating LED off
-int patterns[][14] = {
+const int patterns[][14] PROGMEM = {
     {1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // zero
     {1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // one
     {1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // two
@@ -318,7 +316,7 @@ int patterns[][14] = {
     {0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1}, // seventeen
     {0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1}, // eighteen
     {0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1}, // nineteen
-                                                /*
+                                                
     {1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // twenty
     {1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // twenty one
     {1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // twenty two
@@ -405,7 +403,7 @@ int patterns[][14] = {
     {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}, // ninty six
     {0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1}, // ninty seven
     {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // ninty eight
-    {0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // ninty nine */
+    {0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // ninty nine
 };
 
 /// Displays the pattern of any valid digit on the 14 segment neopixel pattern
@@ -415,7 +413,7 @@ static void displayDigit(int n)
   if (n < 0 || n > 99) // safe guard from integers out of range
     return;
   for (int i = 0; i < 14; i++)
-    if (patterns[n][i] == 1)
+    if (pgm_read_word(patterns[n] + i) == 1)
       (*displayStrip[i])();
   strip.show();
 }
