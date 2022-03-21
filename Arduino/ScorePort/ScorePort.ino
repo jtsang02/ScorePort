@@ -29,12 +29,12 @@ String msg;                                                   // string to read 
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800); // tkcad testing
-// Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_RGBW + NEO_KHZ800);  // physical testing
+// Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800); // tkcad testing
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_RGBW + NEO_KHZ800);  // physical testing
 
 // set default color
-uint32_t c = strip.Color(255, 0, 0); // tkcad testing
-// uint32_t c = strip.Color(0, 255, 0, 0);   // physical testing
+// uint32_t c = strip.Color(255, 0, 0); // tkcad testing
+uint32_t c = strip.Color(0, 255, 0, 0);   // physical testing
 
 void setup()
 {
@@ -46,14 +46,20 @@ void setup()
   strip.begin(); // in initialize neoPixel strip object (req'd)
   strip.show();  // turn off all pixels in strip
 
-  // initialize clock to 20 min
+  // initialize clock to 20 min, scores to 0
   strip.setPin(PIN_SECONDS);
   blank();
   displayDigit(t_secs);
   strip.setPin(PIN_MINUTES);
   blank();
   displayDigit(t_mins);
-  delay(1000);
+  strip.setPin(PIN_HOMESCORE);
+  blank();
+  displayDigit(homeScore);
+  strip.setPin(PIN_GUESTSCORE);
+  blank();
+  displayDigit(guestScore);
+  delay(100);
 }
 
 void loop()
@@ -160,7 +166,7 @@ void loop()
   if (msg == "<start>")
   {
     clockOn = true; // turn on clock
-    Serial.println(F("Clock started\n"));
+    Serial.println("Clock started\n");
     msg = "";
   }
   if (msg == "<stop>")

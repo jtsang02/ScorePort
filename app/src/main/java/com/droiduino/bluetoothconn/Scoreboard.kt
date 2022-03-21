@@ -12,21 +12,51 @@ class Scoreboard : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scoreboard)
 
+        // define buttons
         val incrementHome = findViewById<Button>(R.id.buttonIncrementHome)
         val decrementHome = findViewById<Button>(R.id.buttonDecrementHome)
         val incrementGuest = findViewById<Button>(R.id.buttonIncrementGuest)
         val decrementGuest = findViewById<Button>(R.id.buttonDecrementGuest)
+        val toggleClock = findViewById<Button>(R.id.buttonToggleClock)
+        val resetClock = findViewById<Button>(R.id.buttonResetClock)
         val changeMode = findViewById<Button>(R.id.buttonToggleMode)
+        val goalBtn = findViewById<Button>(R.id.buttonGoal)
+        // define text views
         val homeScoreView = findViewById<TextView>(R.id.homeScore)
         val guestScoreView = findViewById<TextView>(R.id.guestScore)
         val homeShotsView = findViewById<TextView>(R.id.homeShots)
         val guestShotsView = findViewById<TextView>(R.id.guestShots)
+        // variables
         var homeScore = 0
         var guestScore = 0
         var homeShots = 0
         var guestShots = 0
         var scoreMode = true
+        var clockOn = false
         var cmdText = ""
+
+        // toggle clock on/off. sends cmd to arduino
+        toggleClock.setOnClickListener {
+            if (!clockOn) {
+                cmdText = "<start>"
+                toggleClock.text = "Stop"
+                clockOn = true
+            }
+            else {
+                cmdText = "<stop>"
+                toggleClock.text = "Start"
+                clockOn = false
+            }
+            MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
+        }
+
+        // reset clock. send cmd to arduino
+        resetClock.setOnClickListener {
+            clockOn = false
+            cmdText = "<reset>"
+            toggleClock.text = "Start"
+            MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
+        }
 
         // change score/shots mode. does not have to send arduino cmd
         changeMode.setOnClickListener {
@@ -107,6 +137,12 @@ class Scoreboard : AppCompatActivity() {
                     MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
                 }
             }
+        }
+
+        // goal button
+        goalBtn.setOnClickListener {
+            cmdText = "<goal>"
+            MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
         }
     }
 }
