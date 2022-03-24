@@ -1,4 +1,7 @@
 {
+    "sketch": "ScorePort.ino",
     "board": "arduino:avr:uno",
-    "programmer": "arduino:avrisp"
+    "programmer": "arduino:avrisp",
+    "port": "COM7",
+    "output": "../ArduinoOutput"
 }
