@@ -29,12 +29,12 @@ String msg;                                                   // string to read 
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
-// Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800); // tkcad testing
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_RGBW + NEO_KHZ800);  // physical testing
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800); // tkcad testing
+//Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_RGBW + NEO_KHZ800); // physical testing
 
 // set default color
-// uint32_t c = strip.Color(255, 0, 0); // tkcad testing
-uint32_t c = strip.Color(0, 255, 0, 0);   // physical testing
+uint32_t c = strip.Color(255, 0, 0); // tkcad testing
+//uint32_t c = strip.Color(0, 255, 0, 0); // physical testing
 
 void setup()
 {
@@ -81,7 +81,7 @@ void loop()
     homeScore++;
     displayDigit(homeScore);
     Serial.println(F("Home score incremented\n")); // send msg to android
-    msg = "";                                   // reset command
+    msg = "";                                      // reset command
   }
   if (msg == "<decrement home score>")
   {
@@ -200,6 +200,12 @@ void loop()
     }
     msg = "";
   }
+  if (msg == "<goal>")
+  { // display a cool message
+    if (clockOn == false)
+      displayGoal();
+    msg = "";
+  }
 
   // functions that always run for time based on if clock is on
   if (clockOn)
@@ -271,6 +277,35 @@ static void resetClock() // reset clock
   blank();
   displayDigit(t_secs);
 }
+static void displayGoal()
+{
+  for (int i = 0; i < 3; i++)
+  { // flash "GOAL" 3x times
+    // set color to random RGB
+    strip.setPin(PIN_MINUTES);
+    blank();
+    displayDigit(60); // 100 in array displays "GO"
+    strip.setPin(PIN_SECONDS);
+    blank();
+    displayDigit(100); // 100 in array displays "AL"
+    delay(500);
+    strip.setPin(PIN_MINUTES);
+    blank();
+    strip.show();
+    strip.setPin(PIN_SECONDS);
+    blank();
+    strip.show();
+    delay(500);
+  }
+  // resume displaying time
+  // set color back to default color
+  strip.setPin(PIN_MINUTES);
+  blank();
+  displayDigit(t_mins);
+  strip.setPin(PIN_SECONDS);
+  blank();
+  displayDigit(t_secs);
+}
 //=================================================================================================//
 // functions to update patterns on 7-seg displays
 //=================================================================================================//
@@ -322,7 +357,7 @@ const int patterns[][14] PROGMEM = {
     {0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1}, // seventeen
     {0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1}, // eighteen
     {0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1}, // nineteen
-                                                
+
     {1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // twenty
     {1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // twenty one
     {1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // twenty two
@@ -333,7 +368,7 @@ const int patterns[][14] PROGMEM = {
     {1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1}, // twenty seven
     {1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // twenty eight
     {1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // twenty nine
-                                            
+
     {0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // thirty
     {0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // thirty one
     {0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // thirty two
@@ -344,7 +379,7 @@ const int patterns[][14] PROGMEM = {
     {0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1}, // thirty seven
     {0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // thirty eight
     {0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // thirty nine
-                                            
+
     {0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1}, // forty
     {0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1}, // forty one
     {0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1}, // forty two
@@ -355,7 +390,7 @@ const int patterns[][14] PROGMEM = {
     {0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1}, // forty seven
     {0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1}, // forty eight
     {0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1}, // forty nine
-                                            
+
     {0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1}, // fifty
     {0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1}, //  fifty one
     {0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1}, //  fifty two
@@ -366,7 +401,7 @@ const int patterns[][14] PROGMEM = {
     {0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1}, // fiftyseven
     {0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1}, //  fifty eight
     {0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1}, // fifty nine
-                                            
+
     {1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1}, // sixty
     {1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1}, // sixty one
     {1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1}, // sixty two
@@ -377,7 +412,7 @@ const int patterns[][14] PROGMEM = {
     {1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1}, // sixty seven
     {1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1}, // sixty eight
     {1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1}, // sixty nine
-                                            
+
     {0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // seventy
     {0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // seventy one
     {0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // seventy two
@@ -388,7 +423,7 @@ const int patterns[][14] PROGMEM = {
     {0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1}, // seventyseven
     {0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // seventy eight
     {0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // seventy nine
-                                            
+
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // eighty
     {1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // eighty one
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // eighty two
@@ -399,7 +434,7 @@ const int patterns[][14] PROGMEM = {
     {1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1}, // eightyseven
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // eighty eight
     {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // eighty nine
-                                            
+
     {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1}, // ninty
     {0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1}, // ninty one
     {0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1}, // ninty two
@@ -410,13 +445,15 @@ const int patterns[][14] PROGMEM = {
     {0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1}, // ninty seven
     {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // ninty eight
     {0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // ninty nine
+
+    {1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0}  // "AL"
 };
 
 /// Displays the pattern of any valid digit on the 14 segment neopixel pattern
-/// The parameter is any valid integer ranging between 0 to 99 to be displayed
+/// The parameter is any valid integer ranging between 0 to 100 ("AL") to be displayed
 static void displayDigit(int n)
 {
-  if (n < 0 || n > 99) // safe guard from integers out of range
+  if (n < 0 || n > 100) // safe guard from integers out of range
     return;
   for (int i = 0; i < 14; i++)
     if (pgm_read_word(patterns[n] + i) == 1)
