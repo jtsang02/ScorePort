@@ -30,11 +30,11 @@ String msg;                                                   // string to read 
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800); // tkcad testing
-//Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_RGBW + NEO_KHZ800); // physical testing
+// Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_RGBW + NEO_KHZ800); // physical testing
 
 // set default color
 uint32_t c = strip.Color(255, 0, 0); // tkcad testing
-//uint32_t c = strip.Color(0, 255, 0, 0); // physical testing
+// uint32_t c = strip.Color(0, 255, 0, 0); // physical testing
 
 void setup()
 {
@@ -177,9 +177,11 @@ void loop()
   }
   if (msg == "<reset>")
   {
-    clockOn = false; // pause to reset clock
-    resetClock();
-    Serial.println(F("Clock reset\n"));
+    if (clockOn == false)
+    { // only reset if clock is paused
+      resetClock();
+      Serial.println(F("Clock reset\n"));
+    }
     msg = "";
   }
   if (msg == "<countdown mode>")
@@ -203,7 +205,7 @@ void loop()
   if (msg == "<goal>")
   { // display a cool message
     if (clockOn == false)
-      displayGoal();
+      goalMessage();
     msg = "";
   }
 
@@ -277,17 +279,11 @@ static void resetClock() // reset clock
   blank();
   displayDigit(t_secs);
 }
-static void displayGoal()
+static void goalMessage()
 {
   for (int i = 0; i < 3; i++)
   { // flash "GOAL" 3x times
-    // set color to random RGB
-    strip.setPin(PIN_MINUTES);
-    blank();
-    displayDigit(60); // 100 in array displays "GO"
-    strip.setPin(PIN_SECONDS);
-    blank();
-    displayDigit(100); // 100 in array displays "AL"
+    displayGoal();
     delay(500);
     strip.setPin(PIN_MINUTES);
     blank();
@@ -299,12 +295,29 @@ static void displayGoal()
   }
   // resume displaying time
   // set color back to default color
+  c = strip.Color(255, 0, 0); // tkcad testing
+  //c = strip.Color(0, 255, 0, 0); // physical testing
   strip.setPin(PIN_MINUTES);
   blank();
   displayDigit(t_mins);
   strip.setPin(PIN_SECONDS);
   blank();
   displayDigit(t_secs);
+}
+
+// helper function to change pixels to random color
+void displayGoal()
+{
+  c = strip.Color(random(32, 254), random(32, 254), random(32, 254)); // tktesting
+//c = strip.Color(0, 255, 0, 0); // physical testing
+
+  strip.setPin(PIN_MINUTES);
+  blank();
+  // add color here
+  displayDigit(60); // 100 in array displays "GO"
+  strip.setPin(PIN_SECONDS);
+  blank();
+  displayDigit(100); // 100 in array displays "AL"
 }
 //=================================================================================================//
 // functions to update patterns on 7-seg displays
@@ -446,7 +459,7 @@ const int patterns[][14] PROGMEM = {
     {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // ninty eight
     {0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // ninty nine
 
-    {1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0}  // "AL"
+    {1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0} // "AL"
 };
 
 /// Displays the pattern of any valid digit on the 14 segment neopixel pattern
