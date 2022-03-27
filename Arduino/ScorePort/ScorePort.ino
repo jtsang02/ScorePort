@@ -29,12 +29,12 @@ String msg;                                                   // string to read 
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800); // tkcad testing
-//Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_RGBW + NEO_KHZ800); // physical testing
+// Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800); // tkcad testing
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_RGBW + NEO_KHZ800); // physical testing
 
 // set default color
-uint32_t c = strip.Color(255, 0, 0); // tkcad testing
-//uint32_t c = strip.Color(0, 255, 0, 0); // physical testing
+// uint32_t c = strip.Color(255, 0, 0); // tkcad testing
+uint32_t c = strip.Color(0, 255, 0, 0); // physical testing
 
 void setup()
 {
@@ -175,7 +175,8 @@ void loop()
     Serial.println(F("Clock stopped\n"));
     msg = "";
   }
-  if (msg == "<reset>"){
+  if (msg == "<reset>")
+  {
     if (clockOn == false)
     { // only reset if clock is paused
       resetClock((countDown ? periodLength : 0), 0);
@@ -184,24 +185,24 @@ void loop()
     msg = "";
   }
   // "<reset clock to MM:SS>"
-  if (msg.substring(1,12) == "reset clock") // "  reset to time 15"
+  if (msg.substring(1, 12) == "reset clock") // "  reset to time 15"
   {
     if (clockOn == false)
-    { // only reset if clock is paused 
+    { // only reset if clock is paused
       // parse msg string for time min and seconds
       int userMins, userSecs;
 
-      if (msg.charAt(16) == '0')  // if minutes is in the 10
-        userMins = msg.substring(17,18).toInt();
-      else                        // if minutes is greater than 10
+      if (msg.charAt(16) == '0') // if minutes is in the 10
+        userMins = msg.substring(17, 18).toInt();
+      else // if minutes is greater than 10
         userMins = msg.substring(16, 18).toInt();
-      
-      if (msg.charAt(19) == '0')  // if seconds is in the 10
+
+      if (msg.charAt(19) == '0') // if seconds is in the 10
         userSecs = msg.substring(20, 21).toInt();
-      else  
-        userSecs = msg.substring(19, 21).toInt();  // if seconds is greater than 10
-      
-      resetClock(userMins, userSecs);    
+      else
+        userSecs = msg.substring(19, 21).toInt(); // if seconds is greater than 10
+
+      resetClock(userMins, userSecs);
       Serial.println(F("Clock reset\n"));
     }
     msg = "";
@@ -317,8 +318,8 @@ static void goalMessage()
   }
   // resume displaying time
   // set color back to default color
-  c = strip.Color(255, 0, 0); // tkcad testing
-  //c = strip.Color(0, 255, 0, 0); // physical testing
+  // c = strip.Color(255, 0, 0); // tkcad testing
+  c = strip.Color(0, 255, 0, 0); // physical testing
   strip.setPin(PIN_MINUTES);
   blank();
   displayDigit(t_mins);
@@ -330,8 +331,8 @@ static void goalMessage()
 // helper function to change pixels to random color
 void displayGoal()
 {
-  c = strip.Color(random(32, 254), random(32, 254), random(32, 254), random(32, 254)); // tktesting
-//c = strip.Color(0, 255, 0, 0); // physical testing
+  c = strip.Color(random(32, 254), random(32, 254), random(32, 254), random(32, 254)); // physical
+  // c = strip.Color(0, 255, 0, 0); // tkcad testing
 
   strip.setPin(PIN_MINUTES);
   blank();
