@@ -175,7 +175,7 @@ void loop()
     Serial.println(F("Clock stopped\n"));
     msg = "";
   }
-  if (msg == "<reset>")
+  if (msg == "<reset>") // "  reset to time 15"
   {
     if (clockOn == false)
     { // only reset if clock is paused
