@@ -29,12 +29,12 @@ String msg;                                                   // string to read 
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800); // tkcad testing
-// Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_RGBW + NEO_KHZ800); // physical testing
+//Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_GRB + NEO_KHZ800); // tkcad testing
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, PIN_HOMESCORE, NEO_RGBW + NEO_KHZ800); // physical testing
 
 // set default color
-uint32_t c = strip.Color(255, 0, 0); // tkcad testing
-// uint32_t c = strip.Color(0, 255, 0, 0); // physical testing
+//uint32_t c = strip.Color(255, 0, 0); // tkcad testing
+uint32_t c = strip.Color(0, 255, 0, 0); // physical testing
 
 void setup()
 {
@@ -295,8 +295,8 @@ static void goalMessage()
   }
   // resume displaying time
   // set color back to default color
-  c = strip.Color(255, 0, 0); // tkcad testing
-  //c = strip.Color(0, 255, 0, 0); // physical testing
+  // c = strip.Color(255, 0, 0); // tkcad testing
+  c = strip.Color(0, 255, 0, 0); // physical testing
   strip.setPin(PIN_MINUTES);
   blank();
   displayDigit(t_mins);
@@ -308,7 +308,7 @@ static void goalMessage()
 // helper function to change pixels to random color
 void displayGoal()
 {
-  c = strip.Color(random(32, 254), random(32, 254), random(32, 254)); // tktesting
+  c = strip.Color(random(32, 254), random(32, 254), random(32, 254), random(32, 254)); // tktesting
 //c = strip.Color(0, 255, 0, 0); // physical testing
 
   strip.setPin(PIN_MINUTES);

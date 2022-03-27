@@ -3,7 +3,7 @@
 
 // pin assignment
 #define N_LEDS  56
-#define TESTPIN  12
+#define TESTPIN  11
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(N_LEDS, TESTPIN, NEO_RGBW + NEO_KHZ800);  // create NP object for physical testing
 uint32_t c = strip.Color(0, 255, 0, 0);   // set color for physical testing
