@@ -3,6 +3,7 @@ package com.droiduino.bluetoothconn
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -21,6 +22,8 @@ class Scoreboard : AppCompatActivity() {
         val resetClock = findViewById<Button>(R.id.buttonResetClock)
         val changeMode = findViewById<Button>(R.id.buttonToggleMode)
         val goalBtn = findViewById<Button>(R.id.buttonGoal)
+        val toggleCountUp : Switch = findViewById(R.id.countUpSwitch)
+        val changePeriod = findViewById<Button>(R.id.period)
         // define text views
         val homeScoreView = findViewById<TextView>(R.id.homeScore)
         val guestScoreView = findViewById<TextView>(R.id.guestScore)
@@ -33,7 +36,30 @@ class Scoreboard : AppCompatActivity() {
         var guestShots = 0
         var scoreMode = true
         var clockOn = false
+        var period = 1
         var cmdText = ""
+
+        changePeriod.setOnClickListener {
+            if (period < 4){
+                period++;
+            } else {
+                period = 1;
+            }
+            changePeriod.text = period.toString()
+            cmdText = "<change period to ${period.toString()}>"
+            MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
+        }
+
+        toggleCountUp.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // The toggle is enabled
+                cmdText = "<countup mode>"
+            } else {
+                // The toggle is disabled
+                cmdText = "<countdown mode>"
+            }
+            MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
+        }
 
         // toggle clock on/off. sends cmd to arduino
         toggleClock.setOnClickListener {

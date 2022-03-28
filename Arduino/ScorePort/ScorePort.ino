@@ -12,11 +12,14 @@
 #define PIN_GUESTSCORE 3 // guestscore
 #define PIN_HOMESHOTS 7  // homeshots
 #define PIN_HOMESCORE 4  // homescore
+#define PIN_PERIOD    6  // period
+#define PIN_COLON     8  // colon for time
 
 bool countDown = true; // for setting whether clock counts up or down
 bool clockOn = false;
 int homeScore, guestScore, homeShots, guestShots, t_secs = 0; // initialize score, shots and seconds to 0
 int periodLength = 20;                                        // set period time
+int period = 1;                                               // period
 int t_mins = (countDown ? periodLength : 0);                  // initialize minutes
 String msg;                                                   // string to read and print serial commands
 
@@ -59,6 +62,12 @@ void setup()
   strip.setPin(PIN_GUESTSCORE);
   blank();
   displayDigit(guestScore);
+  delay(100);
+
+  // turn on colon (always on)
+  strip.setPin(PIN_COLON);  
+  tensBottomL();
+  strip.show();
   delay(100);
 }
 
@@ -225,6 +234,12 @@ void loop()
     }
     msg = "";
   }
+  // <change period to 1>
+  if (msg.substring(1,14) == "change period") {
+    changePeriod();
+    msg = "";
+  }
+
   if (msg == "<goal>")
   { // display a cool message
     if (clockOn == false)
@@ -302,6 +317,33 @@ static void resetClock(int newMins, int newSecs) // reset clock
   blank();
   displayDigit(t_secs);
 }
+static void changePeriod(){
+  period = msg.substring(18,19).toInt();
+  strip.setPin(PIN_PERIOD);
+  blank();
+  if (period == 1) {
+    // light up first 3 pixels
+    for (uint16_t i = 0; i < 3; i++)
+      strip.setPixelColor(i, c);
+  }   
+  else if (period == 2) {
+    // light up first 6 pixels
+    for (uint16_t i = 0; i < 6; i++)
+      strip.setPixelColor(i, c);
+  }
+  else if (period == 3) {
+    // light up first 9 pixels
+    for (uint16_t i = 0; i < 9; i++)
+      strip.setPixelColor(i, c);
+  }
+  else if (period == 4) {
+    // light up all 12
+    for (uint16_t i = 0; i < 12; i++)
+      strip.setPixelColor(i, c);
+  }
+  strip.show();
+}
+
 static void goalMessage()
 {
   for (int i = 0; i < 3; i++)
@@ -347,7 +389,7 @@ void displayGoal()
 //=================================================================================================//
 static void blank()
 {
-  strip.fill(strip.Color(0, 0, 0, 0), 0, 56);
+  strip.fill(strip.Color(0, 0, 0, 0), 0, N_LEDS);
 }
 
 // Array of function pointers to helper functions listed in order of circuit configuration
