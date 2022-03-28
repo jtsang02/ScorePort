@@ -346,6 +346,10 @@ static void changePeriod(){
 
 static void goalMessage()
 {
+  // turn off colon
+  strip.setPin(PIN_COLON);  
+  blank();
+  strip.show();
   for (int i = 0; i < 3; i++)
   { // flash "GOAL" 3x times
     displayGoal();
