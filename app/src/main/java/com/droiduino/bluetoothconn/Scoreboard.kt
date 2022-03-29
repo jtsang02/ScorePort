@@ -25,6 +25,7 @@ class Scoreboard : AppCompatActivity() {
         val decrementGuest = findViewById<Button>(R.id.buttonDecrementGuest)
         val toggleClock : ToggleButton = findViewById(R.id.buttonToggleClock)
         val resetTime = findViewById<Button>(R.id.buttonResetClock)
+        val resetScore = findViewById<Button>(R.id.resetScore)
         val changeMode = findViewById<Button>(R.id.buttonToggleMode)
         val funBtn = findViewById<Button>(R.id.funBtn)
         val changePeriod = findViewById<Button>(R.id.period)
@@ -68,11 +69,22 @@ class Scoreboard : AppCompatActivity() {
             MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
         }
 
+        // reset score and shots. sends cmd to arduino
+        resetScore.setOnClickListener {
+            homeScore = 0
+            guestScore = 0
+            homeShots = 0
+            guestShots = 0
+            homeScoreView.text = homeScore.toString()
+            guestScoreView.text = guestScore.toString()
+            homeShotsView.text = homeShots.toString()
+            guestShotsView.text = guestShots.toString()
+            MainActivity.connectedThread!!.write("reset score")   // Send command to Arduino board
+        }
+
         // button click to open dialog and show reset clock options. send cmd to arduino
         resetTime.setOnClickListener {
 
-            // Get the LayoutInflater from Context
-            val layoutInflater:LayoutInflater = LayoutInflater.from(applicationContext)
             // Inflate the layout using LayoutInflater
             val mDialogView = LayoutInflater.from(this).inflate(R.layout.reset_time, null)
             //alertDialogBuilder
