@@ -65,9 +65,7 @@ void setup()
   delay(100);
 
   // turn on colon (always on)
-  strip.setPin(PIN_COLON);
-  tensBottomL();
-  strip.show();
+  turnOnColon();
   delay(100);
 
   // set period to 1
@@ -275,7 +273,14 @@ void loop()
   if (msg == "<goal>")
   { // display a cool message
     if (clockOn == false)
-      goalMessage();
+      funMessage(msg);
+    msg = "";
+  }
+
+  if (msg == "<igen>")
+  { // display a cool message
+    if (clockOn == false)
+      funMessage(msg);
     msg = "";
   }
 
@@ -381,11 +386,19 @@ static void changePeriod()
   strip.show();
 }
 
-static void goalMessage()
+static void funMessage(String text)
 {
+  // turn off colon
+  strip.setPin(PIN_COLON);
+  blank();
+  strip.show();
   for (int i = 0; i < 3; i++)
-  { // flash "GOAL" 3x times
-    displayMessage(60, 100);
+  { // flash "goal or message" 3x times
+
+    if (text == "<goal>")
+      displayMessage(60, 100);
+    else if (text == "<igen>")
+      displayMessage(16, 101);
     delay(500);
     strip.setPin(PIN_MINUTES);
     blank();
@@ -394,7 +407,7 @@ static void goalMessage()
     blank();
     strip.show();
     delay(500);
-
+  }
     // resume displaying time
     // set color back to default color
     // c = strip.Color(255, 0, 0); // tkcad testing
@@ -405,10 +418,11 @@ static void goalMessage()
     strip.setPin(PIN_SECONDS);
     blank();
     displayDigit(t_secs);
-  }
+    // turn back on colon
+    turnOnColon();
 }
 
-void displayMessage(int a, int b)
+void displayMessage(int a, int b) // display 4 letters on the time display
 {
   c = strip.Color(random(32, 254), random(32, 254), random(32, 254), random(32, 254)); // physical
   // c = strip.Color(0, 255, 0, 0); // tkcad testing
@@ -420,6 +434,13 @@ void displayMessage(int a, int b)
   strip.setPin(PIN_SECONDS);
   blank();
   displayDigit(b);
+}
+
+static void turnOnColon()
+{
+  strip.setPin(PIN_COLON);
+  tensBottomL();
+  strip.show();
 }
 //=================================================================================================//
 // functions to update patterns on 7-seg displays
@@ -561,14 +582,15 @@ const int patterns[][14] PROGMEM = {
     {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // ninty eight
     {0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1}, // ninty nine
 
-    {1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0} // "AL"
+    {1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0}, // "AL"
+    {1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1}  // "EN"
 };
 
 /// Displays the pattern of any valid digit on the 14 segment neopixel pattern
 /// The parameter is any valid integer ranging between 0 to 100 ("AL") to be displayed
 static void displayDigit(int n)
 {
-  if (n < 0 || n > 100) // safe guard from integers out of range
+  if (n < 0 || n > 101) // safe guard from integers out of range
     return;
   for (int i = 0; i < 14; i++)
     if (pgm_read_word(patterns[n] + i) == 1)
