@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <Button
+        android:id="@+id/goalBtn"
+        android:layout_width="336dp"
+        android:layout_height="37dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorPrimary"
+        android:text="Goal!" />
+
+    <Button
+        android:id="@+id/igenMsg"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:layout_gravity="start"
+        android:background="@color/colorPrimary"
+        android:layout_marginBottom="20dp"
+        android:text="IGEN 2023" />
+
+</LinearLayout>

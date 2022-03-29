@@ -12,8 +12,8 @@
 #define PIN_GUESTSCORE 3 // guestscore
 #define PIN_HOMESHOTS 7  // homeshots
 #define PIN_HOMESCORE 4  // homescore
-#define PIN_PERIOD    6  // period
-#define PIN_COLON     8  // colon for time
+#define PIN_PERIOD 6     // period
+#define PIN_COLON 8      // colon for time
 
 bool countDown = true; // for setting whether clock counts up or down
 bool clockOn = false;
@@ -65,8 +65,16 @@ void setup()
   delay(100);
 
   // turn on colon (always on)
-  strip.setPin(PIN_COLON);  
+  strip.setPin(PIN_COLON);
   tensBottomL();
+  strip.show();
+  delay(100);
+
+  // set period to 1
+  strip.setPin(PIN_PERIOD);
+  blank();
+  for (uint16_t i = 0; i < 3; i++)
+    strip.setPixelColor(i, c);
   strip.show();
   delay(100);
 }
@@ -135,7 +143,6 @@ void loop()
     strip.setPin(PIN_HOMESHOTS);
     homeShots++;
     displayDigit(homeShots);
-    Serial.println(F("Home shots incremented\n"));
     msg = ""; // reset command
   }
   if (msg == "<decrement home shots>")
@@ -146,7 +153,6 @@ void loop()
     strip.setPin(PIN_HOMESHOTS);
     homeShots--;
     displayDigit(homeShots);
-    Serial.println(F("Home score decremented\n"));
     msg = ""; // reset command
   }
   if (msg == "<increment guest shots>")
@@ -157,7 +163,6 @@ void loop()
     strip.setPin(PIN_GUESTSHOTS);
     guestShots++;
     displayDigit(guestShots);
-    Serial.println(F("Guest shots incremented\n"));
     msg = ""; // reset command
   }
   if (msg == "<decrement guest shots>")
@@ -168,7 +173,6 @@ void loop()
     strip.setPin(PIN_GUESTSHOTS);
     guestShots--;
     displayDigit(guestShots);
-    Serial.println(F("Guest shots decremented\n"));
     msg = ""; // reset command
   }
   // update time on serial command
@@ -189,7 +193,6 @@ void loop()
     if (clockOn == false)
     { // only reset if clock is paused
       resetClock((countDown ? periodLength : 0), 0);
-      Serial.println(F("Clock reset\n"));
     }
     msg = "";
   }
@@ -212,7 +215,6 @@ void loop()
         userSecs = msg.substring(19, 21).toInt(); // if seconds is greater than 10
 
       resetClock(userMins, userSecs);
-      Serial.println(F("Clock reset\n"));
     }
     msg = "";
   }
@@ -221,7 +223,7 @@ void loop()
     if (!clockOn)
     {
       countDown = true;
-      Serial.println(F("countdown mode set\n"));
+      resetClock(periodLength, 0);
     }
     msg = "";
   }
@@ -230,12 +232,13 @@ void loop()
     if (!clockOn)
     {
       countDown = false;
-      Serial.println(F("countup mode set\n"));
+      resetClock(0, 0);
     }
     msg = "";
   }
   // <change period to 1>
-  if (msg.substring(1,14) == "change period") {
+  if (msg.substring(1, 14) == "change period")
+  {
     changePeriod();
     msg = "";
   }
@@ -317,26 +320,31 @@ static void resetClock(int newMins, int newSecs) // reset clock
   blank();
   displayDigit(t_secs);
 }
-static void changePeriod(){
-  period = msg.substring(18,19).toInt();
+static void changePeriod()
+{
+  period = msg.substring(18, 19).toInt();
   strip.setPin(PIN_PERIOD);
   blank();
-  if (period == 1) {
+  if (period == 1)
+  {
     // light up first 3 pixels
     for (uint16_t i = 0; i < 3; i++)
       strip.setPixelColor(i, c);
-  }   
-  else if (period == 2) {
+  }
+  else if (period == 2)
+  {
     // light up first 6 pixels
     for (uint16_t i = 0; i < 6; i++)
       strip.setPixelColor(i, c);
   }
-  else if (period == 3) {
+  else if (period == 3)
+  {
     // light up first 9 pixels
     for (uint16_t i = 0; i < 9; i++)
       strip.setPixelColor(i, c);
   }
-  else if (period == 4) {
+  else if (period == 4)
+  {
     // light up all 12
     for (uint16_t i = 0; i < 12; i++)
       strip.setPixelColor(i, c);
@@ -347,7 +355,7 @@ static void changePeriod(){
 static void goalMessage()
 {
   // turn off colon
-  strip.setPin(PIN_COLON);  
+  strip.setPin(PIN_COLON);
   blank();
   strip.show();
   for (int i = 0; i < 3; i++)
@@ -545,7 +553,6 @@ static void displayDigit(int n)
 //=================================================================================================//
 // helper functions to update individual strips
 //=================================================================================================//
-
 //=================helper functions to display tens digits=====================//
 static void tensBottom()
 {

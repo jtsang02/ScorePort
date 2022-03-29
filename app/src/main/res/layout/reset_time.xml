@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="346dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Set Default Period Length"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/userSetPeriodLength"
+        android:layout_width="143dp"
+        android:layout_height="wrap_content"
+        android:hint="mm"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:maxLength="2"/>
+
+    <Button
+        android:id="@+id/setPeriodLength"
+        android:layout_width="336dp"
+        android:layout_height="37dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorPrimary"
+        android:text="Set Default Period" />
+
+    <Switch
+        android:id="@+id/countUpSwitch"
+        android:layout_width="245dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="COUNTUP MODE"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="293dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Reset Clock Time"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/userSetMinutes"
+        android:layout_width="143dp"
+        android:layout_height="wrap_content"
+        android:hint="mm (optional)"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:maxLength="2"/>
+
+    <EditText
+        android:id="@+id/userSetSeconds"
+        android:layout_width="143dp"
+        android:layout_height="wrap_content"
+        android:hint="ss (optional)"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:maxLength="2"/>
+
+    <Button
+        android:id="@+id/resetCustomTime"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:layout_gravity="start"
+        android:background="@color/colorPrimary"
+        android:layout_marginBottom="20dp"
+        android:text="Reset Time" />
+
+</LinearLayout>

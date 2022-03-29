@@ -2,10 +2,15 @@ package com.droiduino.bluetoothconn
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Button
-import android.widget.Switch
 import android.widget.TextView
+import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import androidx.appcompat.app.AlertDialog
+import kotlinx.android.synthetic.main.fun_dialog.*
+import kotlinx.android.synthetic.main.reset_time.view.*
 
 class Scoreboard : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
@@ -18,11 +23,10 @@ class Scoreboard : AppCompatActivity() {
         val decrementHome = findViewById<Button>(R.id.buttonDecrementHome)
         val incrementGuest = findViewById<Button>(R.id.buttonIncrementGuest)
         val decrementGuest = findViewById<Button>(R.id.buttonDecrementGuest)
-        val toggleClock = findViewById<Button>(R.id.buttonToggleClock)
-        val resetClock = findViewById<Button>(R.id.buttonResetClock)
+        val toggleClock : ToggleButton = findViewById(R.id.buttonToggleClock)
+        val resetTime = findViewById<Button>(R.id.buttonResetClock)
         val changeMode = findViewById<Button>(R.id.buttonToggleMode)
-        val goalBtn = findViewById<Button>(R.id.buttonGoal)
-        val toggleCountUp : Switch = findViewById(R.id.countUpSwitch)
+        val funBtn = findViewById<Button>(R.id.funBtn)
         val changePeriod = findViewById<Button>(R.id.period)
         // define text views
         val homeScoreView = findViewById<TextView>(R.id.homeScore)
@@ -35,10 +39,10 @@ class Scoreboard : AppCompatActivity() {
         var homeShots = 0
         var guestShots = 0
         var scoreMode = true
-        var clockOn = false
         var period = 1
         var cmdText = ""
 
+        // change period. send cmd to arduino
         changePeriod.setOnClickListener {
             if (period < 4){
                 period++;
@@ -50,38 +54,71 @@ class Scoreboard : AppCompatActivity() {
             MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
         }
 
-        toggleCountUp.setOnCheckedChangeListener { _, isChecked ->
+        // toggle clock start/stop. sends cmd to arduino
+        toggleClock.setOnCheckedChangeListener { _, isChecked ->
+            toggleClock.setTextOn("Stop");
+            toggleClock.setText("Start");
             if (isChecked) {
                 // The toggle is enabled
-                cmdText = "<countup mode>"
+                cmdText = "<start>"
             } else {
                 // The toggle is disabled
-                cmdText = "<countdown mode>"
-            }
-            MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
-        }
-
-        // toggle clock on/off. sends cmd to arduino
-        toggleClock.setOnClickListener {
-            if (!clockOn) {
-                cmdText = "<start>"
-                toggleClock.text = "Stop"
-                clockOn = true
-            }
-            else {
                 cmdText = "<stop>"
-                toggleClock.text = "Start"
-                clockOn = false
             }
             MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
         }
 
-        // reset clock. send cmd to arduino
-        resetClock.setOnClickListener {
-            clockOn = false
-            cmdText = "<reset>"
-            toggleClock.text = "Start"
-            MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
+        // button click to open dialog and show reset clock options. send cmd to arduino
+        resetTime.setOnClickListener {
+
+            // Get the LayoutInflater from Context
+            val layoutInflater:LayoutInflater = LayoutInflater.from(applicationContext)
+            // Inflate the layout using LayoutInflater
+            val mDialogView = LayoutInflater.from(this).inflate(R.layout.reset_time, null)
+            //alertDialogBuilder
+            val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
+            // show dialog
+            val mAlertDialog = mBuilder.show()
+
+            // logic btns click on custom layout
+            mDialogView.setPeriodLength.setOnClickListener {
+                var userPeriodLength = mDialogView.userSetPeriodLength.text.toString()
+                if (userPeriodLength.length == 1)   userPeriodLength = '0' + userPeriodLength   // convert single digit to string of length 2
+                if (userPeriodLength.isNotEmpty()){
+                    MainActivity.connectedThread!!.write("<set period to ${userPeriodLength}>")   // Send command to Arduino board
+                }
+            }
+            // toggle countup/coundown mode. sends cmd to arduino
+            mDialogView.countUpSwitch.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    // The toggle is enabled
+                    cmdText = "<countup mode>"
+                } else {
+                    // The toggle is disabled
+                    cmdText = "<countdown mode>"
+                }
+                MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
+            }
+
+            mDialogView.resetCustomTime.setOnClickListener {
+                mAlertDialog.dismiss()  // dismiss dialog
+                var userMinutes = mDialogView.userSetMinutes.text.toString()
+                var userSeconds = mDialogView.userSetSeconds.text.toString()
+
+                // convert single digits to string of length 2
+                if (userMinutes.length == 1)    userMinutes = '0' + userMinutes
+                if (userSeconds.length == 1)    userSeconds = '0' + userSeconds
+
+                // more btn logic
+                if (userMinutes.isNotEmpty() && userSeconds.isNotEmpty())
+                    MainActivity.connectedThread!!.write("<reset clock to ${userMinutes}:${userSeconds}>")   // Send command to Arduino board
+                else if (userMinutes.isNotEmpty())
+                    MainActivity.connectedThread!!.write("<reset clock to ${userMinutes}:00>")
+                else if (userSeconds.isNotEmpty())
+                    MainActivity.connectedThread!!.write("<reset clock to 00:${userSeconds}>")
+                else
+                    MainActivity.connectedThread!!.write("<reset>")   // Send command to Arduino board
+            }
         }
 
         // change score/shots mode. does not have to send arduino cmd
@@ -103,11 +140,11 @@ class Scoreboard : AppCompatActivity() {
             if (scoreMode){
                 cmdText = "<increment home score>"
                 homeScore += 1
-                homeScoreView.text = homeScore.toString()
+                homeScoreView.text = homeScore.toString()       // get rid of this
             } else {
                 cmdText = "<increment home shots>"
                 homeShots += 1
-                homeShotsView.text = homeShots.toString()
+                homeShotsView.text = homeShots.toString()       // get rid of this
             }
             MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
         }
@@ -115,21 +152,15 @@ class Scoreboard : AppCompatActivity() {
         // decrement home score or shots
         decrementHome.setOnClickListener {
             if (scoreMode) {
-                if (homeScore > 0) {
-                    cmdText = "<decrement home score>"
-                    homeScore -= 1
-                    homeScoreView.text = homeScore.toString()
-                    MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
-                }
+                cmdText = "<decrement home score>"
+                homeScore -= 1
+                homeScoreView.text = homeScore.toString()
             } else {
-                if (homeShots > 0) {
-                    cmdText = "<decrement home shots>"
-                    homeShots -= 1
-                    homeShotsView.text = homeShots.toString()
-                    MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
-                }
+                cmdText = "<decrement home shots>"
+                homeShots -= 1
+                homeShotsView.text = homeShots.toString()
             }
-
+            MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
         }
 
         // increment guest score or shot
@@ -149,27 +180,35 @@ class Scoreboard : AppCompatActivity() {
         // decrement guest score or shots
         decrementGuest.setOnClickListener {
             if (scoreMode) {
-                if (guestScore > 0) {
-                    cmdText = "<decrement guest score>"
-                    guestScore -= 1
-                    guestScoreView.text = guestScore.toString()
-                    MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
-                }
+                cmdText = "<decrement guest score>"
+                guestScore -= 1
+                guestScoreView.text = guestScore.toString()
             } else {
-                if (guestShots > 0) {
-                    cmdText = "<decrement guest shots>"
-                    guestShots -= 1
-                    guestShotsView.text = guestShots.toString()
-                    MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
-                }
+                cmdText = "<decrement guest shots>"
+                guestShots -= 1
+                guestShotsView.text = guestShots.toString()
             }
+            MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
         }
 
-        // goal button
-        goalBtn.setOnClickListener {
-            cmdText = "<goal>"
-            MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
+        // fun button dialog box
+        funBtn.setOnClickListener {
+
+            // Inflate the layout using LayoutInflater
+            val funDialogView = LayoutInflater.from(this).inflate(R.layout.fun_dialog, null)
+            //alertDialogBuilder
+            val funBuilder = AlertDialog.Builder(this).setView(funDialogView)
+            // show dialog
+            val funAlertDialog = funBuilder.show()
+
+            funAlertDialog.goalBtn.setOnClickListener {
+                MainActivity.connectedThread!!.write("<goal>")   // Send command to Arduino board
+                Handler().postDelayed({}, 3000)
+            }
+            funAlertDialog.igenMsg.setOnClickListener {
+                MainActivity.connectedThread!!.write("<igen>")   // Send command to Arduino board
+                Handler().postDelayed({}, 3000)
+            }
         }
     }
 }
-
