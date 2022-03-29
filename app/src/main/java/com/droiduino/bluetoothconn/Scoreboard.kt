@@ -79,7 +79,7 @@ class Scoreboard : AppCompatActivity() {
             guestScoreView.text = guestScore.toString()
             homeShotsView.text = homeShots.toString()
             guestShotsView.text = guestShots.toString()
-            MainActivity.connectedThread!!.write("reset score")   // Send command to Arduino board
+            MainActivity.connectedThread!!.write("<reset score>")   // Send command to Arduino board
         }
 
         // button click to open dialog and show reset clock options. send cmd to arduino
@@ -205,7 +205,6 @@ class Scoreboard : AppCompatActivity() {
 
         // fun button dialog box
         funBtn.setOnClickListener {
-
             // Inflate the layout using LayoutInflater
             val funDialogView = LayoutInflater.from(this).inflate(R.layout.fun_dialog, null)
             //alertDialogBuilder
