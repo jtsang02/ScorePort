@@ -1,2 +1,2 @@
 # Scoreport
- Android Studio code bootstrapped from droiduino
+ IGEN 330 Bluetooth App controlled electronic scoreboard
