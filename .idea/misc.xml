@@ -12,11 +12,19 @@
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/layout/device_info_layout.xml" value="0.228125" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/layout/layout.xml" value="0.2552083333333333" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/DroiduinoBluetoothConnection/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.329" />
-        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/layout/activity_main.xml" value="0.300390625" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/drawable-mdpi/baseball.xml" value="0.358" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/drawable-mdpi/basketball.xml" value="0.358" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/drawable-mdpi/tennis.xml" value="0.358" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/drawable/Soccer_background.xml" value="0.358" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/layout/activity_scoreboard.xml" value="0.264" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/layout/activity_select_device.xml" value="0.255859375" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/layout/fun_dialog.xml" value="0.255859375" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/layout/reset_time.xml" value="0.264" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/baseball.xml" value="0.3655" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/baseball_round.xml" value="0.2205" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/basketball_round.xml" value="0.3655" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/soccer_round.xml" value="0.34" />
         <entry key="..\:/Users/jtsan/Documents/GitHub/ScorePort/app/src/main/res/layout/activity_scoreboard.xml" value="0.264" />
       </map>
     </option>

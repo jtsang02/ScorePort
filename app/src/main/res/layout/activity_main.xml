@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constrainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
+    android:background="@color/darkBlueBackground"
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -15,7 +16,9 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:subtitleTextColor="@android:color/background_light"
@@ -24,14 +27,18 @@
 
     <Button
         android:id="@+id/buttonConnect"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="200dp"
+        android:layout_width="214dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="524dp"
+        android:layout_marginBottom="83dp"
+        android:backgroundTint="@color/blueBtn"
+        android:fontFamily="sans-serif-medium"
         android:text="Connect"
         android:textSize="24sp"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,29 +56,84 @@
 
     <Button
         android:id="@+id/buttonToScoreboard"
-        android:layout_width="wrap_content"
+        android:layout_width="214dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginStart="112dp"
         android:layout_marginEnd="113dp"
-        android:layout_marginBottom="35dp"
-        android:padding="12dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/blueBtn"
+        android:fontFamily="sans-serif-medium"
+        android:padding="10dp"
         android:text="Go to Scoreboard"
+        android:textSize="15dp"
+        app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/mainLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="236dp"
+        android:layout_height="156dp"
         android:layout_marginStart="90dp"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="90dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/splogo" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="208dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@mipmap/basketball_round" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginEnd="153dp"
+        android:layout_marginBottom="208dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@mipmap/baseball_round" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="208dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@mipmap/soccer_round" />
+
+    <TextView
+        android:id="@+id/slogan1"
+        android:layout_width="369dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="What sport are you playing today?"
+        android:textAlignment="viewStart"
+        android:textColor="#F4F3F3"
+        android:textDirection="firstStrongRtl"
+        android:textSize="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainLogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
