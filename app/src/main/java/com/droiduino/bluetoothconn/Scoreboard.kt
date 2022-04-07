@@ -23,7 +23,10 @@ class Scoreboard : AppCompatActivity() {
         val decrementHome = findViewById<Button>(R.id.buttonDecrementHome)
         val incrementGuest = findViewById<Button>(R.id.buttonIncrementGuest)
         val decrementGuest = findViewById<Button>(R.id.buttonDecrementGuest)
-        val toggleClock : ToggleButton = findViewById(R.id.buttonToggleClock)
+
+        val toggleClock = findViewById<Button>(R.id.buttonToggleClock)
+        //val toggleClock : ToggleButton = findViewById(R.id.buttonToggleClock2)
+
         val resetTime = findViewById<Button>(R.id.buttonResetClock)
         val resetScore = findViewById<Button>(R.id.resetScore)
         val changeMode = findViewById<Button>(R.id.buttonToggleMode)
@@ -40,6 +43,7 @@ class Scoreboard : AppCompatActivity() {
         var homeShots = 0
         var guestShots = 0
         var scoreMode = true
+        var clockOn = false
         var period = 1
         var cmdText = ""
 
@@ -56,6 +60,7 @@ class Scoreboard : AppCompatActivity() {
         }
 
         // toggle clock start/stop. sends cmd to arduino
+        /*
         toggleClock.setOnCheckedChangeListener { _, isChecked ->
             toggleClock.setTextOn("Stop");
             toggleClock.setTextOff("Start");
@@ -65,6 +70,20 @@ class Scoreboard : AppCompatActivity() {
             } else {
                 // The toggle is disabled
                 cmdText = "<stop>"
+            }
+            MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
+        }*/
+        // toggle clock on/off. sends cmd to arduino
+        toggleClock.setOnClickListener {
+            if (!clockOn) {
+                cmdText = "<start>"
+                toggleClock.text = "Stop"
+                clockOn = true
+            }
+            else {
+                cmdText = "<stop>"
+                toggleClock.text = "Start"
+                clockOn = false
             }
             MainActivity.connectedThread!!.write(cmdText)   // Send command to Arduino board
         }

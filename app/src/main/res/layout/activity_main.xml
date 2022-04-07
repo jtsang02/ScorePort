@@ -29,16 +29,35 @@
         android:id="@+id/buttonConnect"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="83dp"
+        android:layout_marginBottom="120dp"
         android:backgroundTint="@color/blueBtn"
         android:fontFamily="sans-serif-medium"
+        android:padding="10dp"
         android:text="Connect"
         android:textSize="22dp"
         app:cornerRadius="15dp"
-        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonToScoreboard"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="112dp"
+        android:layout_marginEnd="113dp"
+        android:layout_marginBottom="44dp"
+        android:backgroundTint="@color/blueBtn"
+        android:fontFamily="sans-serif-medium"
+        android:padding="10dp"
+        android:text="Go to Scoreboard"
+        android:textSize="22dp"
+        android:visibility="invisible"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
@@ -52,25 +71,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.368" />
-
-    <Button
-        android:id="@+id/buttonToScoreboard"
-        android:visibility="invisible"
-        android:layout_width="290dp"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="112dp"
-        android:layout_marginEnd="113dp"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/blueBtn"
-        android:fontFamily="sans-serif-medium"
-        android:text="Go to Scoreboard"
-        android:textSize="22dp"
-        android:padding="10dp"
-        app:cornerRadius="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/mainLogo"
