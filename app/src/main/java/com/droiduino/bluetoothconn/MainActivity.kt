@@ -1,26 +1,18 @@
 package com.droiduino.bluetoothconn
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.droiduino.bluetoothconn.R
-import android.widget.ProgressBar
-import android.widget.TextView
 import android.bluetooth.BluetoothAdapter
-import com.droiduino.bluetoothconn.MainActivity
-import com.droiduino.bluetoothconn.MainActivity.CreateConnectThread
-import android.os.Looper
-import android.content.Intent
-import com.droiduino.bluetoothconn.SelectDeviceActivity
-import android.content.ContentValues
-import com.droiduino.bluetoothconn.MainActivity.ConnectedThread
-import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
+import android.content.ContentValues
+import android.content.Intent
+import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.os.Message
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.ImageView
+import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import java.io.IOException
 import java.io.InputStream
@@ -47,9 +39,10 @@ class MainActivity : AppCompatActivity() {
         if (deviceName != null) {
             // Get the device address to make BT Connection
             deviceAddress = intent.getStringExtra("deviceAddress")
-            // Show progree and connection status
+            // Show progress and connection status
             toolbar.subtitle = "Connecting to $deviceName..."
             progressBar.visibility = View.VISIBLE
+            progressBar.bringToFront()
             buttonConnect.isEnabled = false
 
             /*
@@ -74,6 +67,7 @@ class MainActivity : AppCompatActivity() {
                             progressBar.visibility = View.GONE
                             buttonConnect.isEnabled = true
                             buttonToScoreboard.isEnabled = true
+                            buttonToScoreboard.visibility = View.VISIBLE
                         }
                         -1 -> {
                             toolbar.subtitle = "Device fails to connect"

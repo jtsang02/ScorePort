@@ -16,18 +16,31 @@
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/drawable-mdpi/basketball.xml" value="0.358" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/drawable-mdpi/tennis.xml" value="0.358" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/drawable/Soccer_background.xml" value="0.358" />
-        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/layout/activity_scoreboard.xml" value="0.264" />
-        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/layout/activity_select_device.xml" value="0.255859375" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/drawable/splogo.xml" value="0.385" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/layout/activity_scoreboard.xml" value="0.4" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/layout/activity_select_device.xml" value="0.4" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/layout/fun_dialog.xml" value="0.255859375" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/layout/reset_time.xml" value="0.264" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/baseball.xml" value="0.3655" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/baseball_round.xml" value="0.2205" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/basketball_round.xml" value="0.3655" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/downArrow.xml" value="0.3555" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/downArrow_round.xml" value="0.366" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/football_round.xml" value="0.33" />
         <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/soccer_round.xml" value="0.34" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/spIcon2.xml" value="0.3375" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/spIcon2_round.xml" value="0.3375" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/spikeball.xml" value="0.33" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/spikeball_round.xml" value="0.33" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/splogo2.xml" value="0.3375" />
+        <entry key="..\:/Users/jtsan/AndroidStudioProjects/ScorePort/app/src/main/res/mipmap-anydpi-v26/tennis_round.xml" value="0.33" />
         <entry key="..\:/Users/jtsan/Documents/GitHub/ScorePort/app/src/main/res/layout/activity_scoreboard.xml" value="0.264" />
       </map>
     </option>
+  </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/spIcon2_round.xml" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

@@ -5,7 +5,7 @@
     android:id="@+id/constrainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
+    android:background="@color/darkBlueBackground"
     tools:context=".MainActivity">
 
     <TextView
@@ -16,6 +16,9 @@
         android:layout_marginTop="156dp"
         android:layout_marginEnd="185dp"
         android:text="Quarter"
+        android:textColor="#F4F3F3"
+        android:textSize="18dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,19 +30,23 @@
         android:layout_marginStart="158dp"
         android:layout_marginEnd="159dp"
         android:layout_marginBottom="48dp"
+        android:backgroundTint="@color/blueBtn"
         android:text="FUN!"
+        app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonResetClock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:layout_marginStart="158dp"
         android:layout_marginEnd="159dp"
         android:layout_marginBottom="272dp"
         android:text="Set Time"
+        app:backgroundTint="@color/blueBtn"
+        app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
@@ -47,12 +54,14 @@
 
     <Button
         android:id="@+id/resetScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:layout_marginStart="158dp"
         android:layout_marginEnd="159dp"
         android:layout_marginBottom="204dp"
         android:text="Reset Score"
+        app:backgroundTint="@color/blueBtn"
+        app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -64,16 +73,23 @@
         android:layout_marginTop="204dp"
         android:layout_marginEnd="80dp"
         android:text="0"
+        android:textColor="#F4F3F3"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonDecrementGuest"
-        android:layout_width="68dp"
-        android:layout_height="42dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="53dp"
         android:text=" - "
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"
+        app:backgroundTint="#F4A58A"
+        app:cornerRadius="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -82,49 +98,51 @@
 
     <Button
         android:id="@+id/buttonIncrementGuest"
-        android:layout_width="68dp"
-        android:layout_height="42dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="124dp"
         android:text=" + "
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"
+        app:backgroundTint="#F4A58A"
+        app:cornerRadius="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/arrow_up_float" />
 
-    <TextView
-        android:id="@+id/textViewInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/scoreboard"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/buttonIncrementHome"
-        android:layout_width="68dp"
-        android:layout_height="42dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="48dp"
         android:layout_marginBottom="124dp"
+        android:backgroundTint="#F4A58A"
         android:text=" + "
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"
+        app:backgroundTint="#F4A58A"
+        app:cornerRadius="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/arrow_up_float" />
 
     <Button
         android:id="@+id/buttonDecrementHome"
-        android:layout_width="68dp"
-        android:layout_height="42dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="48dp"
         android:layout_marginBottom="53dp"
         android:text=" - "
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"
+        app:backgroundTint="#F4A58A"
+        app:cornerRadius="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/arrow_down_float" />
@@ -137,7 +155,9 @@
         android:layout_marginStart="158dp"
         android:layout_marginEnd="159dp"
         android:layout_marginBottom="124dp"
+        android:backgroundTint="@color/blueBtn"
         android:text="Score"
+        app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -149,6 +169,9 @@
         android:layout_marginStart="65dp"
         android:layout_marginTop="105dp"
         android:text="Home"
+        android:textColor="#F4F3F3"
+        android:textSize="18dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -159,6 +182,8 @@
         android:layout_marginStart="64dp"
         android:layout_marginTop="176dp"
         android:text="Shots"
+        android:textColor="#F4F3F3"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -169,6 +194,8 @@
         android:layout_marginTop="176dp"
         android:layout_marginEnd="64dp"
         android:text="Shots"
+        android:textColor="#F4F3F3"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -179,6 +206,9 @@
         android:layout_marginTop="105dp"
         android:layout_marginEnd="65dp"
         android:text="Visitor"
+        android:textColor="#F4F3F3"
+        android:textSize="18dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -189,6 +219,8 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="140dp"
         android:text="0"
+        android:textColor="#F4F3F3"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -199,6 +231,8 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="204dp"
         android:text="0"
+        android:textColor="#F4F3F3"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -206,37 +240,60 @@
         android:id="@+id/guestScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="320dp"
         android:layout_marginTop="140dp"
         android:layout_marginEnd="80dp"
         android:text="0"
+        android:textColor="#F4F3F3"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/period"
-        android:layout_width="37dp"
-        android:layout_height="46dp"
+        android:layout_width="48dp"
+        android:layout_height="57dp"
         android:layout_marginStart="159dp"
         android:layout_marginTop="192dp"
         android:layout_marginEnd="158dp"
         android:text="1"
+        android:textColor="@android:color/black"
+        android:textSize="22dp"
+        app:backgroundTint="#F4A58A"
+        app:cornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ToggleButton
         android:id="@+id/buttonToggleClock"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="161dp"
-        android:layout_marginTop="261dp"
+        android:layout_marginTop="272dp"
         android:layout_marginEnd="162dp"
+        android:background="@color/blueBtn"
+        android:textColor="#F4F3F3"
+        android:textDirection="firstStrong"
         android:textOff="START"
         android:textOn="STOP"
+        android:theme="@style/AppTheme"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="99dp"
+        android:layout_height="88dp"
+        app:layout_constraintBottom_toTopOf="@+id/quarterLabel"
+        app:layout_constraintEnd_toStartOf="@+id/visitorLabel"
+        app:layout_constraintHorizontal_bias="0.53"
+        app:layout_constraintStart_toEndOf="@+id/homeLabel"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.426"
+        app:srcCompat="@mipmap/sp_icon_round" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,20 +27,18 @@
 
     <Button
         android:id="@+id/buttonConnect"
-        android:layout_width="214dp"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="524dp"
         android:layout_marginBottom="83dp"
         android:backgroundTint="@color/blueBtn"
         android:fontFamily="sans-serif-medium"
         android:text="Connect"
-        android:textSize="24sp"
+        android:textSize="22dp"
         app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -56,17 +54,17 @@
 
     <Button
         android:id="@+id/buttonToScoreboard"
-        android:layout_width="214dp"
+        android:visibility="invisible"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginStart="112dp"
         android:layout_marginEnd="113dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="@color/blueBtn"
         android:fontFamily="sans-serif-medium"
-        android:padding="10dp"
         android:text="Go to Scoreboard"
-        android:textSize="15dp"
+        android:textSize="22dp"
         app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,13 +72,13 @@
 
     <ImageView
         android:id="@+id/mainLogo"
-        android:layout_width="236dp"
-        android:layout_height="156dp"
+        android:layout_width="216dp"
+        android:layout_height="128dp"
         android:layout_marginStart="90dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="90dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/splogo" />
@@ -90,9 +88,7 @@
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="340dp"
-        android:layout_marginBottom="208dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="300dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/basketball_round" />
@@ -102,10 +98,8 @@
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_marginStart="148dp"
-        android:layout_marginTop="340dp"
+        android:layout_marginTop="300dp"
         android:layout_marginEnd="153dp"
-        android:layout_marginBottom="208dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -113,13 +107,44 @@
         app:srcCompat="@mipmap/baseball_round" />
 
     <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="420dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/football_round" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="420dp"
+        android:layout_marginEnd="153dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/spikeball_round" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="420dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/tennis_round" />
+
+    <ImageView
         android:id="@+id/imageView8"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:layout_marginTop="340dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="208dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/soccer_round" />
@@ -129,7 +154,7 @@
         android:layout_width="369dp"
         android:layout_height="105dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="sans-serif-medium"
         android:text="What sport are you playing today?"
@@ -138,7 +163,7 @@
         android:textDirection="firstStrongRtl"
         android:textSize="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainLogo" />
 

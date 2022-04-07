@@ -1,18 +1,15 @@
 package com.droiduino.bluetoothconn
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.droiduino.bluetoothconn.R
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
+import android.content.Intent
+import android.os.Bundle
 import android.view.View
-import com.droiduino.bluetoothconn.DeviceInfoModel
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.droiduino.bluetoothconn.DeviceListAdapter
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import java.util.ArrayList
 
 class SelectDeviceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +45,13 @@ class SelectDeviceActivity : AppCompatActivity() {
             )
             snackbar.setAction("OK") { }
             snackbar.show()
+        }
+
+        // add a return button
+        val cancelButton = findViewById<Button>(R.id.cancelButton)
+        cancelButton.setOnClickListener {
+            val intent = Intent(this@SelectDeviceActivity, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 }
