@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="20dp"
+    android:background="@color/darkBlueBackground"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:theme="@style/CardView.Dark"
+    android:visibility="visible">
 
     <TextView
         android:layout_width="346dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="Set Default Period Length"
+        android:textColor="#F4F3F3"
         android:textSize="24sp" />
 
     <EditText
@@ -21,15 +26,21 @@
         android:hint="mm"
         android:imeOptions="actionNext"
         android:inputType="number"
-        android:maxLength="2"/>
+        android:maxLength="2"
+        android:textColor="#F4F3F3"
+        android:textColorHint="#B1A9A9"
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/setPeriodLength"
-        android:layout_width="336dp"
-        android:layout_height="37dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_marginBottom="20dp"
         android:background="@color/colorPrimary"
-        android:text="Set Default Period" />
+        android:text="Set Default Period"
+        android:textColor="#F4F3F3"
+        app:backgroundTint="@color/blueBtn"
+        app:cornerRadius="15dp" />
 
     <Switch
         android:id="@+id/countUpSwitch"
@@ -37,6 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text="COUNTUP MODE"
+        android:textColor="#F4F3F3"
+        android:textColorLink="#F4A58A"
         android:textSize="15sp" />
 
     <TextView
@@ -44,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="Reset Clock Time"
+        android:textColor="#F4F3F3"
         android:textSize="24sp" />
 
     <EditText
@@ -53,7 +67,9 @@
         android:hint="mm (optional)"
         android:imeOptions="actionNext"
         android:inputType="number"
-        android:maxLength="2"/>
+        android:maxLength="2"
+        android:textColor="#F4F3F3"
+        android:textColorHint="#B1A9A9" />
 
     <EditText
         android:id="@+id/userSetSeconds"
@@ -62,15 +78,20 @@
         android:hint="ss (optional)"
         android:imeOptions="actionNext"
         android:inputType="number"
-        android:maxLength="2"/>
+        android:maxLength="2"
+        android:textColor="#F4F3F3"
+        android:textColorHint="#B1A9A9" />
 
     <Button
         android:id="@+id/resetCustomTime"
         android:layout_width="match_parent"
-        android:layout_height="37dp"
+        android:layout_height="40dp"
         android:layout_gravity="start"
-        android:background="@color/colorPrimary"
         android:layout_marginBottom="20dp"
-        android:text="Reset Time" />
+        android:background="@color/colorPrimary"
+        android:text="Reset Time"
+        android:textColor="#F4F3F3"
+        app:backgroundTint="@color/blueBtn"
+        app:cornerRadius="15dp" />
 
 </LinearLayout>

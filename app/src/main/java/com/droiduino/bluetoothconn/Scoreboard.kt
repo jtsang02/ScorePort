@@ -58,7 +58,7 @@ class Scoreboard : AppCompatActivity() {
         // toggle clock start/stop. sends cmd to arduino
         toggleClock.setOnCheckedChangeListener { _, isChecked ->
             toggleClock.setTextOn("Stop");
-            toggleClock.setText("Start");
+            toggleClock.setTextOff("Start");
             if (isChecked) {
                 // The toggle is enabled
                 cmdText = "<start>"

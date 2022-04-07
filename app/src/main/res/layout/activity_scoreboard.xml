@@ -268,19 +268,18 @@
     <ToggleButton
         android:id="@+id/buttonToggleClock"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="161dp"
-        android:layout_marginTop="272dp"
+        android:layout_marginTop="280dp"
         android:layout_marginEnd="162dp"
-        android:background="@color/blueBtn"
+        android:background="@drawable/roundstyle"
+        android:backgroundTint="@color/blueBtn"
         android:textColor="#F4F3F3"
         android:textDirection="firstStrong"
         android:textOff="START"
         android:textOn="STOP"
-        android:theme="@style/AppTheme"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
