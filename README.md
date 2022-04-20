@@ -1,6 +1,6 @@
 # ScorePort
 
-### Bluetooth controlled electronic scoreboard ⚽️ 🏀 🏈 ⚾️ 🎾 🏐 🏉 
+### Bluetooth controlled electronic scoreboard ⚽️ 🏀 🏈 ⚾️ 🏐 🏉 
 
 A fully inflatable electronic scorekeeping system that compresses for easy storage and portable transportation.  Designed for use by intramural sports organizations and recreational sports leagues. LED displays utilize addressable LED strips assembled into 7 segment digits that are large enough to be visible from far ends of the playing court or field.  Hardware components are safely stored in a weatherproof 3D printed box allowing for access to manually turn on and off the fans and displays.  A mobile app connects to the scoreboard via a Bluetooth connection to control the time, score, shots (not built on physical prototype), and period/quarter without the need for wifi connection.
 
@@ -25,8 +25,6 @@ https://user-images.githubusercontent.com/77314661/164132701-eeffb46b-2096-49fd-
 - 3x quad AA battery holders
 - 12x AA batteries
 - 4x power switch buttons
-
-*Note: soldiering required for period/quarter bars
 
 ### Schematic
 
