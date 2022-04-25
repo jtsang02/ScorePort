@@ -45,4 +45,26 @@ Written in Arduino C for the AVR family of microcontrollers, and using the Ardui
 - [bblanchon/ArduinoJson](https://github.com/bblanchon/ArduinoJson) 6.17.2
 
 
-## Software - Android App
+## Software
+
+### Bluetooth Connection
+
+Bluetooth connection is established by a simple client-server model, where the Android app is the client that initiates a communication session with the ScorePort acting as the server. When a device is found, the Android code calls a new thread to create a Bluetooth connection with the selected device. Data is received by the Arduino on the Serial Monitor.  For example, the app will send the command ```<increment homescore>``` which will be received as a string by Arduino serial.
+
+### Android App
+
+The mobile app is written in Kotlin and developed in Android Studio, with extensive markup language (XML) used for the user interface. The app includes user functionality for changing score and period; starting and stopping the clock; resetting the clock to user inputted time with count up or countdown mode; setting custom period time for different sports; and displaying custom messages when the clock is not running.
+
+The app user interface was mocked up in [Figma](https://www.figma.com/file/UGBB1Kjmnd156oiMjIX9bv/ScorePort-App-UI?node-id=0%3A1) beforehand and these designs were referenced when building the actual layouts shown below.
+
+![image](https://user-images.githubusercontent.com/77314661/165063783-3c49c2be-0373-4f65-8c33-8a2b45ccfc6b.png) 	 	 
+![image](https://user-images.githubusercontent.com/77314661/165063400-9f81dc5b-006e-497b-91ba-6f706facfc0a.png)
+![image](https://user-images.githubusercontent.com/77314661/165063423-3e2ca544-b6ad-454c-84f6-6a8a20bea0c2.png)
+
+![image](https://user-images.githubusercontent.com/77314661/165063521-ac4b7017-4e05-4127-b498-ceb87e9bf9c2.png)
+![image](https://user-images.githubusercontent.com/77314661/165063542-7791f9a0-577c-4931-bed1-5449059bf0cf.png)
+![image](https://user-images.githubusercontent.com/77314661/165063759-a9dd0232-ca48-4c56-adaa-1b0e0852e46d.png)
+
+ 	 	 
+
+ 	 	 
