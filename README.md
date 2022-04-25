@@ -54,7 +54,7 @@ Bluetooth connection is established by a simple client-server model, where the A
 
 Developed in Android Studio and written in the Kotlin programming language, with extensive markup language (XML) for the user interface. The app includes user functionality for changing score and period; starting and stopping the clock; resetting the clock to user inputted time with count up or countdown mode; setting custom period time for different sports; and displaying custom messages when the clock is not running.
 
-The user interface was mocked up in [Figma](https://www.figma.com/file/UGBB1Kjmnd156oiMjIX9bv/ScorePort-App-UI?node-id=0%3A1) before developement and these designs were referenced when for the final layouts shown below.
+The user interface was mocked up in [Figma](https://www.figma.com/file/UGBB1Kjmnd156oiMjIX9bv/ScorePort-App-UI?node-id=0%3A1) before development and these designs were referenced when for the final layouts shown below.
 
 ![image](https://user-images.githubusercontent.com/77314661/165063783-3c49c2be-0373-4f65-8c33-8a2b45ccfc6b.png) 	 	 
 ![image](https://user-images.githubusercontent.com/77314661/165063400-9f81dc5b-006e-497b-91ba-6f706facfc0a.png)
