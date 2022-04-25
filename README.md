@@ -58,9 +58,10 @@ The user interface was mocked up in [Figma](https://www.figma.com/file/UGBB1Kjmn
 
 ![image](https://user-images.githubusercontent.com/77314661/165063783-3c49c2be-0373-4f65-8c33-8a2b45ccfc6b.png) 	 	 
 ![image](https://user-images.githubusercontent.com/77314661/165063400-9f81dc5b-006e-497b-91ba-6f706facfc0a.png)
-![image](https://user-images.githubusercontent.com/77314661/165063423-3e2ca544-b6ad-454c-84f6-6a8a20bea0c2.png)
 
+![image](https://user-images.githubusercontent.com/77314661/165063423-3e2ca544-b6ad-454c-84f6-6a8a20bea0c2.png)
 ![image](https://user-images.githubusercontent.com/77314661/165063521-ac4b7017-4e05-4127-b498-ceb87e9bf9c2.png)
+
 ![image](https://user-images.githubusercontent.com/77314661/165063542-7791f9a0-577c-4931-bed1-5449059bf0cf.png)
 ![image](https://user-images.githubusercontent.com/77314661/165063759-a9dd0232-ca48-4c56-adaa-1b0e0852e46d.png)
 
