@@ -56,7 +56,6 @@ Developed in Android Studio and written in the Kotlin programming language, with
 
 The user interface was mocked up in [Figma](https://www.figma.com/file/UGBB1Kjmnd156oiMjIX9bv/ScorePort-App-UI?node-id=0%3A1) before development and these designs were referenced when for the final layouts shown below.
 
-![image](https://user-images.githubusercontent.com/77314661/165063783-3c49c2be-0373-4f65-8c33-8a2b45ccfc6b.png) 	 	 
 ![image](https://user-images.githubusercontent.com/77314661/165063400-9f81dc5b-006e-497b-91ba-6f706facfc0a.png)
 
 ![image](https://user-images.githubusercontent.com/77314661/165063423-3e2ca544-b6ad-454c-84f6-6a8a20bea0c2.png)
