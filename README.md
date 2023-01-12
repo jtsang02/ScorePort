@@ -30,7 +30,7 @@ https://user-images.githubusercontent.com/77314661/164132701-eeffb46b-2096-49fd-
 
 ![image](https://user-images.githubusercontent.com/77314661/164131380-079c965e-478b-4c2f-b70c-5bc9246357b1.png)
 
-The Arduino and NeoPixel LED strips circuit for score/shots and clock were modelled on two separate TinkerCAD sketches (no virtual bluetooth module testing available, bluetooth connection was tested on the physical device) to test the firemware code, pin connections, addressable library, and Serial communication:
+The Arduino and NeoPixel LED strips circuit for score/shots and clock were modelled on two separate TinkerCAD sketches (no virtual bluetooth module testing available, bluetooth connection was tested on the physical device) to test the firmware code, pin connections, addressable library, and Serial communication:
 
 - [Clock](https://www.tinkercad.com/login?next=%2Fthings%2FipT19Fd9uXQ-fabulous-luulia-amur%2Feditel%3Fsharecode%3DmgtLCh8mOluWIWKFgePiFf8DEEMq6n7NJTlxXU7f0uQ)
 - [Score / Shots](https://www.tinkercad.com/things/h8cbnCAmsZ4-1score-segment-leds/editel?sharecode=FjUpfV3TMvTk0h-rpqfup-ZYqf5LUnMXKbBtl5f3qfk)
